@@ -4,19 +4,29 @@ using namespace std;
 
 void parseCommand(vector<string> command){
 
-    string commandType = command.front();
+    string possibleQueryType = command.front();
 
-    if(commandType == "SELECT"){
-        parseSELECT(command);
-        return;
-    } else if(commandType == "LOAD"){
-        parseLOAD(command);
-        return;
-    } else if(commandType == "INDEX"){
-        parseINDEX(command);
-        return;
+    if(possibleQueryType == "PRINT"){
+        queryType = PRINT;
+    } else if(possibleQueryType == "INDEX"){
+        queryType = INDEX;
+    } else if(possibleQueryType == "LOAD"){
+        queryType = LOAD;
+    } else if(possibleQueryType == "CLEAR"){
+        queryType = CLEAR;
     } else {
-        cout<<"SYNTAX ERROR"<<endl;
+        string newRelationName = command.front();
+        command.erase(command.begin());
+        if(command.front()!="<-"){
+            cout<<"SYNTAX ERROR"<<endl;
+            return;
+        }
+        command.erase(command.begin());
+        possibleQueryType = command.front();
+
+        if(possibleQueryType == "SELECT"){
+            queryType = SELECTION;
+        } else if(possibleQueryType == "")
     }
 }
 
