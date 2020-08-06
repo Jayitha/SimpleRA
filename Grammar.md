@@ -14,8 +14,11 @@
 
 ```
 Statement -> relation_name <- assignment_statement
+           | index_statement
            | load_statement
            | clear_statement
+           | print_statement
+           | LIST TABLES
 
 assignment_statement -> selection_statement
            | projection_statement
@@ -30,7 +33,7 @@ selection_statement -> SELECT condition FROM relation_name
 condition -> column_name binop column_name 
            | column_name binop int_literal
 
-binop -> > | < | == | !=
+binop -> > | < | == | != | <= | >= | => | =< 
 
 projection_statement -> PROJECT projection_list FROM relation_name
 
@@ -48,5 +51,11 @@ sort_statement -> SORT relation_name BY column_name
 clear_statement -> CLEAR relation_name
 
 load_statement -> LOAD relation_name
+
+print_statement -> PRINT relation_name
+
+index_statement -> INDEX ON column_name FROM relation_name USING indexing_strategy
+
+
 
 ```
