@@ -9,6 +9,7 @@
 - SORT R BY 
 - CLEAR R
 - LOAD R 
+- INDEX 
 
 ## Grammar
 
@@ -46,7 +47,9 @@ rename_statement -> RENAME column_name TO column_name FROM relation_name
 
 distinct_statement -> DISTINCT relation_name
 
-sort_statement -> SORT relation_name BY column_name
+sort_statement -> SORT relation_name BY column_name IN sorting_order
+
+sorting_order -> ASC | DESC
 
 clear_statement -> CLEAR relation_name
 
@@ -56,6 +59,5 @@ print_statement -> PRINT relation_name
 
 index_statement -> INDEX ON column_name FROM relation_name USING indexing_strategy
 
-
-
+indexing_strategy -> HASH | BTREE | NOTHING;
 ```
