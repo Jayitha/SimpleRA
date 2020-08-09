@@ -1,8 +1,17 @@
 //Server Code
-#include"parser.h"
+#include"executor.h"
 
 
 using namespace std;
+
+void doCommand(vector<string> tokenizedCommand);
+
+void doCommand(vector<string> tokenizedCommand){
+    parsedQuery.clear();
+    parseCommand(tokenizedCommand);
+    executeCommand();
+    return;
+}
 
 int main(void){
 

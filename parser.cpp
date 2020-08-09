@@ -4,40 +4,49 @@ using namespace std;
 
 void parseCommand(vector<string> command){
 
-    string possibleQueryType = command.front();
-
-    if(possibleQueryType == "PRINT"){
-        queryType = PRINT;
-    } else if(possibleQueryType == "INDEX"){
-        queryType = INDEX;
-    } else if(possibleQueryType == "LOAD"){
-        queryType = LOAD;
-    } else if(possibleQueryType == "CLEAR"){
-        queryType = CLEAR;
-    } else {
-        string newRelationName = command.front();
-        command.erase(command.begin());
-        if(command.front()!="<-"){
-            cout<<"SYNTAX ERROR"<<endl;
-            return;
-        }
-        command.erase(command.begin());
-        possibleQueryType = command.front();
-
-        if(possibleQueryType == "SELECT"){
-            queryType = SELECTION;
-        } else if(possibleQueryType == "")
-    }
+    
 }
 
-void parseSELECT(vector<string> command){
+void parseCLEAR(vector<string> tokenizedCommand){
     return;
 }
 
-void parseLOAD(vector<string> command){
+void parseCROSS(vector<string> tokenizedCommand){
     return;
 }
 
-void parseINDEX(vector<string> command){
+void parseDISTINCT(vector<string> tokenizedCommand){
+    return;
+}
+
+void parseINDEX(vector<string> tokenizedCommand){
+    return;
+}
+
+void parseLIST(vector<string> tokenizedCommand){
+    return;
+}
+
+void parseLOAD(vector<string> tokenizedCommand){
+    return;
+}
+
+void parsePRINT(vector<string> tokenizedCommand){
+    return;
+}
+
+void parsePROJECTION(vector<string> tokenizedCommand){
+    return;
+}
+
+void parseRENAME(vector<string> tokenizedCommand){
+    return;
+}
+
+void parseSELECTION(vector<string> tokenizedCommand){
+    return;
+}
+
+void parseSORT(vector<string> tokenizedCommand){
     return;
 }
