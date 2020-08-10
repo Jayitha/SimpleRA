@@ -35,6 +35,8 @@ enum SortingStrategy{
 
 class ParsedQuery{
 
+    public:
+
     QueryType queryType;
     IndexingStrategy indexingStrategy;
     BinaryOperator binaryOperator;
@@ -48,40 +50,28 @@ class ParsedQuery{
     string newColumnName;
     int intLiteral;
 
-    public:
 
     ParsedQuery(){
         this->clear();
     }
 
-    void clear(){
-        this->queryType = UNDETERMINED;
-        this->indexingStrategy = NOTHING;
-        this->binaryOperator = NO_BINOP_CLAUSE;
-        this->sortingStrategy = NO_SORT_CLAUSE;
-        this->targetRelationName = "";
-        this->secondTargetRelationName = "";
-        this->targetColumnName = "";
-        this->secondTargetColumnName = "";
-        this->resultantRelationName = "";
-        this->projectionColumnList.clear();
-        this->newColumnName = "";
-        this->intLiteral = 0;
-    }
+    void clear();
+    void setQueryType(QueryType QueryType);
 };
 
+extern vector<string> tokenizedQuery;
 extern ParsedQuery parsedQuery;
 
-void parseCommand(vector<string> tokenizedCommand);
-void parseCLEAR(vector<string> tokenizedCommand);
-void parseCROSS(vector<string> tokenizedCommand);
-void parseDISTINCT(vector<string> tokenizedCommand);
-void parseINDEX(vector<string> tokenizedCommand);
-void parseLIST(vector<string> tokenizedCommand);
-void parseLOAD(vector<string> tokenizedCommand);
-void parsePRINT(vector<string> tokenizedCommand);
-void parsePROJECTION(vector<string> tokenizedCommand);
-void parseRENAME(vector<string> tokenizedCommand);
-void parseSELECTION(vector<string> tokenizedCommand);
-void parseSORT(vector<string> tokenizedCommand);
+void parseCommand();
+void parseCLEAR();
+void parseCROSS();
+void parseDISTINCT();
+void parseINDEX();
+void parseLIST();
+void parseLOAD();
+void parsePRINT();
+void parsePROJECTION();
+void parseRENAME();
+void parseSELECTION();
+void parseSORT();
 

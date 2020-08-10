@@ -20,11 +20,11 @@ Statement -> relation_name <- assignment_statement
            | clear_statement
            | print_statement
            | LIST TABLES
+           | rename_statement
 
 assignment_statement -> selection_statement
            | projection_statement
            | cross_product_statement
-           | rename_statement
            | distinct_statement
            | sort_statement
            

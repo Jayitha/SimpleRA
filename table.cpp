@@ -14,18 +14,9 @@ void Table::load(string tableName = ""){
 }
 
 
-string Table::getTableName(){
-    return this->tableName;
-}
-
-vector<Column> Table::getColumns(){
-    return this->columns;
-}
-
-
 bool Table::isColumn(string columnName){
     for(auto col: this->columns){
-        if(col.getColumnName() == columnName){
+        if(col.columnName == columnName){
             return true;
         }
     }
@@ -35,7 +26,7 @@ bool Table::isColumn(string columnName){
 //Returns column only if it exists
 Column Table::getColumn(string columnName){
     for(auto col: this->columns){
-        if(col.getColumnName() == columnName){
+        if(col.columnName == columnName){
             return col;
         }
     }
