@@ -4,42 +4,39 @@
 
 using namespace std;
 
-void doCommand(vector<string> tokenizedCommand);
-
-void doCommand(vector<string> tokenizedCommand){
-    parsedQuery.clear();
-    parseCommand(tokenizedCommand);
-    executeCommand();
+void doCommand(){
+    if(syntacticParse() && semanticParse())
+        executeCommand();
     return;
 }
 
 int main(void){
 
-    vector<string> tokenizedCommand;
     regex delim("[^\\s.,]+");
     string command;
 
     while(1){
         cout<<"\n> ";
-        tokenizedCommand.clear();
+        tokenizedQuery.clear();
+        parsedQuery.clear();
         getline(cin, command);
         auto words_begin = std::sregex_iterator(command.begin(), command.end(), delim);
         auto words_end = std::sregex_iterator();
         for (std::sregex_iterator i = words_begin; i != words_end; ++i)
-            tokenizedCommand.emplace_back((*i).str());
+            tokenizedQuery.emplace_back((*i).str());
 
-        if(tokenizedCommand.size() == 1 && tokenizedCommand.front() == "QUIT"){
+        if(tokenizedQuery.size() == 1 && tokenizedQuery.front() == "QUIT"){
             break;
         }
 
-        if(tokenizedCommand.empty()){
+        if(tokenizedQuery.empty()){
             continue;
         }
 
-        if(tokenizedCommand.size() == 1){
+        if(tokenizedQuery.size() == 1){
             cout<<"SYNTAX ERROR"<<endl;
         }
 
-        doCommand(tokenizedCommand);
+        doCommand();
     }
 }

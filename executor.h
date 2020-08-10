@@ -1,16 +1,17 @@
-#include"parser.h"
+#include"semanticParser.h"
 
 void executeCommand();
 
-void clear();
-void cross();
-void distinct();
-void index();
-void listTables();
-void load();
-void print();
-void projection();
-void rename();
-void selection();
-void sort();
-void printRowCount(int rowCount)
+void executeCLEAR();
+void executeCROSS();
+void executeDISTINCT();
+void executeINDEX();
+void executeLIST();
+void executeLOAD();
+void executePRINT();
+void executePROJECTION();
+void executeRENAME();
+void executeSELECTION();
+void executeSORT();
+
+void printRowCount(int rowCount);

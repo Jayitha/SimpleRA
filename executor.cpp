@@ -3,17 +3,17 @@
 void executeCommand(){
 
     switch(parsedQuery.queryType){
-        case CLEAR: clear(); break;
-        case CROSS: cross(); break;
-        case DISTINCT: distinct(); break;
-        case INDEX: index(); break;
-        case LIST: listTables(); break;
-        case LOAD: load(); break;
-        case PRINT: print(); break;
-        case PROJECTION: projection(); break;
-        case RENAME: rename(); break;
-        case SELECTION: selection(); break;
-        case SORT: sort(); break;
+        case CLEAR: executeCLEAR(); break;
+        case CROSS: executeCROSS(); break;
+        case DISTINCT: executeDISTINCT(); break;
+        case INDEX: executeINDEX(); break;
+        case LIST: executeLIST(); break;
+        case LOAD: executeLOAD(); break;
+        case PRINT: executePRINT(); break;
+        case PROJECTION: executePROJECTION(); break;
+        case RENAME: executeRENAME(); break;
+        case SELECTION: executeSELECTION(); break;
+        case SORT: executeSORT(); break;
         default: cout<<"PARSING ERROR"<<endl;
     }
 
