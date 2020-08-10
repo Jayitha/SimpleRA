@@ -2,115 +2,51 @@
 
 using namespace std;
 
-void parseCommand(){
+bool syntacticParse(){
 
     string possibleQueryType = tokenizedQuery[0];
 
-    if(possibleQueryType == "CLEAR")
-        parseCLEAR();
-    else if(possibleQueryType == "INDEX")
-        parseINDEX();
-    else if(possibleQueryType == "LIST")
-        parseLIST();
-    else if(possibleQueryType == "LOAD")
-        parseLOAD();
-    else if(possibleQueryType == "PRINT")
-        parsePRINT();
-    else if(possibleQueryType == "RENAME")
-        parseRENAME();
-
-    else{
-        if(tokenizedQuery[1] != "<-" || tokenizedQuery.size() < 3){
-            cout<<"SYNTAX ERROR"<<endl;
-            return;
-        } 
-        possibleQueryType = tokenizedQuery[2];
-        if(possibleQueryType == "PROJECT")
-            parsePROJECTION();
-        else if(possibleQueryType == "SELECT")
-            parseSELECTION();
-        else if(possibleQueryType == "CROSS")
-            parseCROSS();
-        else if(possibleQueryType == "DISTINCT")
-            parseDISTINCT();
-        else if(possibleQueryType == "SORT")
-            parseSORT();
-        else{
-            cout<<"SYNTAX ERROR"<<endl;
-            return;
-        }
-    }
-    return;   
-}
-
-void parseCLEAR(){
-
-    parsedQuery.queryType = CLEAR;
-    return;
-}
-
-void parseCROSS(){
-
-    parsedQuery.queryType = CROSS;
-    return;
-}
-
-void parseDISTINCT(){
-
-    parsedQuery.queryType = DISTINCT;
-    return;
-}
-
-void parseINDEX(){
-
-    parsedQuery.queryType = INDEX;
-    return;
-}
-
-void parseLIST(){
-
-    parsedQuery.queryType = LIST;
-    if(tokenizedQuery[1] != "TABLES"){
+    if(possibleQueryType.size() < 2){
         cout<<"SYNTAX ERROR"<<endl;
         return;
     }
-    return;
-}
 
-void parseLOAD(){
+    if(possibleQueryType == "CLEAR")
+        return syntacticParseCLEAR();
+    else if(possibleQueryType == "INDEX")
+        return syntacticParseINDEX();
+    else if(possibleQueryType == "LIST")
+        return syntacticParseLIST();
+    else if(possibleQueryType == "LOAD")
+        return syntacticParseLOAD();
+    else if(possibleQueryType == "PRINT")
+        return syntacticParsePRINT();
+    else if(possibleQueryType == "RENAME")
+        return syntacticParseRENAME();
 
-    parsedQuery.queryType = LOAD;
-    return;
-}
-
-void parsePRINT(){
-
-    parsedQuery.queryType = PRINT;
-    return;
-}
-
-void parsePROJECTION(){
-
-    parsedQuery.queryType = PROJECTION;
-    return;
-}
-
-void parseRENAME(){
-
-    parsedQuery.queryType = RENAME;
-    return;
-}
-
-void parseSELECTION(){
-
-    parsedQuery.queryType = SELECTION;
-    return;
-}
-
-void parseSORT(){
-
-    parsedQuery.queryType = SORT;
-    return;
+    else{
+        string resultantRelationName = possibleQueryType;
+        if(tokenizedQuery[1] != "<-" || tokenizedQuery.size() < 3){
+            cout<<"SYNTAX ERROR"<<endl;
+            return;
+        }
+        possibleQueryType = tokenizedQuery[2];
+        if(possibleQueryType == "PROJECT")
+            return syntacticParsePROJECTION();
+        else if(possibleQueryType == "SELECT")
+            return syntacticParseSELECTION();
+        else if(possibleQueryType == "CROSS")
+            return syntacticParseCROSS();
+        else if(possibleQueryType == "DISTINCT")
+            return syntacticParseDISTINCT();
+        else if(possibleQueryType == "SORT")
+            return syntacticParseSORT();
+        else{
+            cout<<"SYNTAX ERROR"<<endl;
+            return false;
+        }
+    }
+    return false;
 }
 
 void ParsedQuery::clear(){
