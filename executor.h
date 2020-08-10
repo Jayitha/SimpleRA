@@ -6,10 +6,11 @@ void clear();
 void cross();
 void distinct();
 void index();
-void list();
+void listTables();
 void load();
 void print();
 void projection();
 void rename();
 void selection();
 void sort();
+void printRowCount(int rowCount)

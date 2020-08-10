@@ -1,52 +1,129 @@
-#include"parser.h"
+#include"executor.h"
 
 using namespace std;
 
-void parseCommand(vector<string> command){
+void parseCommand(){
 
-    
+    string possibleQueryType = tokenizedQuery[0];
+
+    if(possibleQueryType == "CLEAR")
+        parseCLEAR();
+    else if(possibleQueryType == "INDEX")
+        parseINDEX();
+    else if(possibleQueryType == "LIST")
+        parseLIST();
+    else if(possibleQueryType == "LOAD")
+        parseLOAD();
+    else if(possibleQueryType == "PRINT")
+        parsePRINT();
+    else if(possibleQueryType == "RENAME")
+        parseRENAME();
+
+    else{
+        if(tokenizedQuery[1] != "<-" || tokenizedQuery.size() < 3){
+            cout<<"SYNTAX ERROR"<<endl;
+            return;
+        } 
+        possibleQueryType = tokenizedQuery[2];
+        if(possibleQueryType == "PROJECT")
+            parsePROJECTION();
+        else if(possibleQueryType == "SELECT")
+            parseSELECTION();
+        else if(possibleQueryType == "CROSS")
+            parseCROSS();
+        else if(possibleQueryType == "DISTINCT")
+            parseDISTINCT();
+        else if(possibleQueryType == "SORT")
+            parseSORT();
+        else{
+            cout<<"SYNTAX ERROR"<<endl;
+            return;
+        }
+    }
+    return;   
 }
 
-void parseCLEAR(vector<string> tokenizedCommand){
+void parseCLEAR(){
+
+    parsedQuery.queryType = CLEAR;
     return;
 }
 
-void parseCROSS(vector<string> tokenizedCommand){
+void parseCROSS(){
+
+    parsedQuery.queryType = CROSS;
     return;
 }
 
-void parseDISTINCT(vector<string> tokenizedCommand){
+void parseDISTINCT(){
+
+    parsedQuery.queryType = DISTINCT;
     return;
 }
 
-void parseINDEX(vector<string> tokenizedCommand){
+void parseINDEX(){
+
+    parsedQuery.queryType = INDEX;
     return;
 }
 
-void parseLIST(vector<string> tokenizedCommand){
+void parseLIST(){
+
+    parsedQuery.queryType = LIST;
+    if(tokenizedQuery[1] != "TABLES"){
+        cout<<"SYNTAX ERROR"<<endl;
+        return;
+    }
     return;
 }
 
-void parseLOAD(vector<string> tokenizedCommand){
+void parseLOAD(){
+
+    parsedQuery.queryType = LOAD;
     return;
 }
 
-void parsePRINT(vector<string> tokenizedCommand){
+void parsePRINT(){
+
+    parsedQuery.queryType = PRINT;
     return;
 }
 
-void parsePROJECTION(vector<string> tokenizedCommand){
+void parsePROJECTION(){
+
+    parsedQuery.queryType = PROJECTION;
     return;
 }
 
-void parseRENAME(vector<string> tokenizedCommand){
+void parseRENAME(){
+
+    parsedQuery.queryType = RENAME;
     return;
 }
 
-void parseSELECTION(vector<string> tokenizedCommand){
+void parseSELECTION(){
+
+    parsedQuery.queryType = SELECTION;
     return;
 }
 
-void parseSORT(vector<string> tokenizedCommand){
+void parseSORT(){
+
+    parsedQuery.queryType = SORT;
     return;
+}
+
+void ParsedQuery::clear(){
+        this->queryType = UNDETERMINED;
+        this->indexingStrategy = NOTHING;
+        this->binaryOperator = NO_BINOP_CLAUSE;
+        this->sortingStrategy = NO_SORT_CLAUSE;
+        this->targetRelationName = "";
+        this->secondTargetRelationName = "";
+        this->targetColumnName = "";
+        this->secondTargetColumnName = "";
+        this->resultantRelationName = "";
+        this->projectionColumnList.clear();
+        this->newColumnName = "";
+        this->intLiteral = 0;
 }

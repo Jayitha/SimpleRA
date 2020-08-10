@@ -11,11 +11,8 @@ enum IndexingStrategy{
 
 class Column{
 
-    string columnName;
-    IndexingStrategy indexingStrategy;
-
     public:
     
-    string getColumnName();
-    IndexingStrategy getIndexingStrategy();
+    string columnName;
+    IndexingStrategy indexingStrategy;
 };
