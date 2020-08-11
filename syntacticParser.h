@@ -33,6 +33,12 @@ enum SortingStrategy{
     NO_SORT_CLAUSE
 };
 
+enum SelectType{
+    COLUMN,
+    INT_LITERAL,
+    NO_SELECT_CLAUSE
+};
+
 class ParsedQuery{
 
     public:
@@ -64,12 +70,13 @@ class ParsedQuery{
     string renameToColumnName;
     string renameRelationName;
 
+    SelectType selectType;
     BinaryOperator binaryOperator;
     string selectionResultRelationName;
     string selectionRelationName;
     string selectionFirstColumnName;
-    string selectionOptionalSecondColumnName;
-    int selectionOptionalIntLiteral;
+    string selectionSecondColumnName;
+    int selectionIntLiteral;
 
     SortingStrategy sortingStrategy;
     string sortResultRelationName;

@@ -1,5 +1,8 @@
 #include"executor.h"
-
+/**
+ * @brief 
+ * SYNTAX: R <- SELECT column_name bin_op [column_name | int_literal] FROM relation_name
+ */
 bool syntacticParseSELECTION(){
     if(tokenizedQuery.size()!=8 || tokenizedQuery[6]!="FROM"){
         cout<<"SYNTAC ERROR"<<endl;
@@ -27,8 +30,16 @@ bool syntacticParseSELECTION(){
         cout<<"SYNTAC ERROR"<<endl;
         return false;
     }
-    
-    return;
+    regex numeric ("[-]?[0-9]+");
+    string secondArgument = tokenizedQuery[5];
+    if(regex_match(secondArgument, numeric)){
+        parsedQuery.selectType = INT_LITERAL;
+        parsedQuery.selectionIntLiteral = stoi(secondArgument);
+    } else {
+        parsedQuery.selectType = COLUMN;
+        parsedQuery.selectionSecondColumnName = secondArgument;
+    }
+    return true;
 }
 
 bool semanticParseSELECTION(){

@@ -1,5 +1,8 @@
 #include"executor.h"
-
+/**
+ * @brief 
+ * SYNTAX: R <- PROJECT column_name1, ... FROM relation_name
+ */
 bool syntacticParsePROJECTION(){
     if(tokenizedQuery.size() < 5 || *(tokenizedQuery.end()-2) != "FROM"){
         cout<<"SYNTAX ERROR"<<endl;

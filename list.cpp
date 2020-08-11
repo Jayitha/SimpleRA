@@ -1,5 +1,8 @@
 #include"executor.h"
-
+/**
+ * @brief 
+ * SYNTAX: LIST TABLES
+ */
 bool syntacticParseLIST(){
 
     if(tokenizedQuery.size() != 2 || tokenizedQuery[1] != "TABLES"){

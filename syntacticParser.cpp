@@ -8,7 +8,7 @@ bool syntacticParse(){
 
     if(possibleQueryType.size() < 2){
         cout<<"SYNTAX ERROR"<<endl;
-        return;
+        return false;
     }
 
     if(possibleQueryType == "CLEAR")
@@ -28,7 +28,7 @@ bool syntacticParse(){
         string resultantRelationName = possibleQueryType;
         if(tokenizedQuery[1] != "<-" || tokenizedQuery.size() < 3){
             cout<<"SYNTAX ERROR"<<endl;
-            return;
+            return false;
         }
         possibleQueryType = tokenizedQuery[2];
         if(possibleQueryType == "PROJECT")
@@ -51,15 +51,43 @@ bool syntacticParse(){
 
 void ParsedQuery::clear(){
         this->queryType = UNDETERMINED;
+
+        this->clearRelationName = "";
+
+        this->crossResultRelationName = "";
+        this->crossFirstRelationName = "";
+        this->crossSecondRelationName = "";
+
+        this->distinctResultRelationName = "";
+        this->distinctRelationName = "";
+
         this->indexingStrategy = NOTHING;
-        this->binaryOperator = NO_BINOP_CLAUSE;
-        this->sortingStrategy = NO_SORT_CLAUSE;
-        this->targetRelationName = "";
-        this->secondTargetRelationName = "";
-        this->targetColumnName = "";
-        this->secondTargetColumnName = "";
-        this->resultantRelationName = "";
+        this->indexColumnName = "";
+        this->indexRelationName = "";
+
+        this->loadRelationName = "";
+
+        this->printRelationName = "";
+
+        this->projectionResultRelationName = "";
         this->projectionColumnList.clear();
-        this->newColumnName = "";
-        this->intLiteral = 0;
+        this->projectionRelationName = "";
+
+        this->renameFromColumnName = "";
+        this->renameToColumnName = "";
+        this->renameRelationName = "";
+
+        this->selectType = NO_SELECT_CLAUSE;
+        this->binaryOperator = NO_BINOP_CLAUSE;
+        this->selectionResultRelationName = "";
+        this->selectionRelationName = "";
+        this->selectionFirstColumnName = "";
+        this->selectionSecondColumnName = "";
+        this->selectionIntLiteral = 0;
+
+        this->sortingStrategy = NO_SORT_CLAUSE;
+        this->sortResultRelationName = "";
+        this->sortColumnName = "";
+        this->sortRelationName = "";
+    
 }

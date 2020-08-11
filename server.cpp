@@ -14,6 +14,8 @@ int main(void){
 
     regex delim("[^\\s.,]+");
     string command;
+    ParsedQuery parsedQuery;
+    vector<string> tokenizedQuery;
 
     while(1){
         cout<<"\n> ";

@@ -1,5 +1,9 @@
 #include"executor.h"
-
+/**
+ * @brief 
+ * SYNTAX: INDEX ON column_name FROM relation_name USING indexing_strategy
+ * indexing_strategy: ASC | DESC | NOTHING
+ */
 bool syntacticParseINDEX(){
 
     if(tokenizedQuery.size() != 7 || tokenizedQuery[1] != "ON" 
