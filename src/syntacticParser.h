@@ -7,6 +7,7 @@ enum QueryType{
     CROSS,
     DISTINCT,
     INDEX,
+    JOIN,
     LIST,
     LOAD,
     PRINT,
@@ -58,6 +59,13 @@ class ParsedQuery{
     string indexColumnName = "";
     string indexRelationName = "";
 
+    BinaryOperator joinBinaryOperator = NO_BINOP_CLAUSE;
+    string joinResultRelationName = "";
+    string joinFirstRelationName = "";
+    string joinSecondRelationName = "";
+    string joinFirstColumnName = "";
+    string joinSecondColumnName = "";
+
     string loadRelationName = "";
 
     string printRelationName = "";
@@ -71,7 +79,7 @@ class ParsedQuery{
     string renameRelationName = "";
 
     SelectType selectType = NO_SELECT_CLAUSE;
-    BinaryOperator binaryOperator = NO_BINOP_CLAUSE;
+    BinaryOperator selectionBinaryOperator = NO_BINOP_CLAUSE;
     string selectionResultRelationName = "";
     string selectionRelationName = "";
     string selectionFirstColumnName = "";
@@ -95,6 +103,7 @@ bool syntacticParseCLEAR();
 bool syntacticParseCROSS();
 bool syntacticParseDISTINCT();
 bool syntacticParseINDEX();
+bool syntacticParseJOIN();
 bool syntacticParseLIST();
 bool syntacticParseLOAD();
 bool syntacticParsePRINT();

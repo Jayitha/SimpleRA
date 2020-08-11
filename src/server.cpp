@@ -26,7 +26,7 @@ int main(void){
         cout<<"\n> ";
         tokenizedQuery.clear();
         parsedQuery.clear();
-        logger<<"Reading New Command: ";
+        logger<<"\nReading New Command: ";
         getline(cin, command);
         logger<<command<<endl;
         

@@ -35,6 +35,8 @@ bool syntacticParse(){
             return syntacticParsePROJECTION();
         else if(possibleQueryType == "SELECT")
             return syntacticParseSELECTION();
+            else if(possibleQueryType == "JOIN")
+            return syntacticParseJOIN();
         else if(possibleQueryType == "CROSS")
             return syntacticParseCROSS();
         else if(possibleQueryType == "DISTINCT")
@@ -70,6 +72,13 @@ void ParsedQuery::clear(){
     this->indexColumnName = "";
     this->indexRelationName = "";
 
+    this->joinBinaryOperator = NO_BINOP_CLAUSE;
+    this->joinResultRelationName = "";
+    this->joinFirstRelationName = "";
+    this->joinSecondRelationName = "";
+    this->joinFirstColumnName = "";
+    this->joinSecondColumnName = "";
+
     this->loadRelationName = "";
 
     this->printRelationName = "";
@@ -83,7 +92,7 @@ void ParsedQuery::clear(){
     this->renameRelationName = "";
 
     this->selectType = NO_SELECT_CLAUSE;
-    this->binaryOperator = NO_BINOP_CLAUSE;
+    this->selectionBinaryOperator = NO_BINOP_CLAUSE;
     this->selectionResultRelationName = "";
     this->selectionRelationName = "";
     this->selectionFirstColumnName = "";
