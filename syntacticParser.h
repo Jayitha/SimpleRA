@@ -43,52 +43,47 @@ class ParsedQuery{
 
     public:
 
-    QueryType queryType;
+    QueryType queryType = UNDETERMINED;
 
-    string clearRelationName;
+    string clearRelationName = "";
 
-    string crossResultRelationName;
-    string crossFirstRelationName;
-    string crossSecondRelationName;
+    string crossResultRelationName = "";
+    string crossFirstRelationName = "";
+    string crossSecondRelationName = "";
 
-    string distinctResultRelationName;
-    string distinctRelationName;
+    string distinctResultRelationName = "";
+    string distinctRelationName = "";
 
-    IndexingStrategy indexingStrategy;
-    string indexColumnName;
-    string indexRelationName;
+    IndexingStrategy indexingStrategy = NOTHING;
+    string indexColumnName = "";
+    string indexRelationName = "";
 
-    string loadRelationName;
+    string loadRelationName = "";
 
-    string printRelationName;
+    string printRelationName = "";
 
-    string projectionResultRelationName;
+    string projectionResultRelationName = "";
     vector<string> projectionColumnList;
-    string projectionRelationName;
+    string projectionRelationName = "";
 
-    string renameFromColumnName;
-    string renameToColumnName;
-    string renameRelationName;
+    string renameFromColumnName = "";
+    string renameToColumnName = "";
+    string renameRelationName = "";
 
-    SelectType selectType;
-    BinaryOperator binaryOperator;
-    string selectionResultRelationName;
-    string selectionRelationName;
-    string selectionFirstColumnName;
-    string selectionSecondColumnName;
-    int selectionIntLiteral;
+    SelectType selectType = NO_SELECT_CLAUSE;
+    BinaryOperator binaryOperator = NO_BINOP_CLAUSE;
+    string selectionResultRelationName = "";
+    string selectionRelationName = "";
+    string selectionFirstColumnName = "";
+    string selectionSecondColumnName = "";
+    int selectionIntLiteral = 0;
 
-    SortingStrategy sortingStrategy;
-    string sortResultRelationName;
-    string sortColumnName;
-    string sortRelationName;
-
-    ParsedQuery(){
-        this->clear();
-    }
+    SortingStrategy sortingStrategy = NO_SORT_CLAUSE;
+    string sortResultRelationName = "";
+    string sortColumnName = "";
+    string sortRelationName = "";
 
     void clear();
-    void setQueryType(QueryType QueryType);
 };
 
 extern vector<string> tokenizedQuery;

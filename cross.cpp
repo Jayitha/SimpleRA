@@ -4,8 +4,8 @@
  * @brief 
  * SYNTAX: R <- CROSS relation_name relation_name
  */
-bool syntacticParseCROSS(){
-
+bool syntacticParseCROSS(){    
+    logger<<"syntacticParseCROSS"<<endl;
     if(tokenizedQuery.size() != 5){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -18,9 +18,11 @@ bool syntacticParseCROSS(){
 }
 
 bool semanticParseCROSS(){
+    logger<<"semanticParseCROSS"<<endl;
     return true;
 }
 
 void executeCROSS(){
+    logger<<"executeCROSS"<<endl;
     return;
 }

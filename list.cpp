@@ -4,7 +4,7 @@
  * SYNTAX: LIST TABLES
  */
 bool syntacticParseLIST(){
-
+    logger<<"syntacticParseLIST"<<endl;
     if(tokenizedQuery.size() != 2 || tokenizedQuery[1] != "TABLES"){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -14,10 +14,12 @@ bool syntacticParseLIST(){
 }
 
 bool semanticParseLIST(){
+    logger<<"semanticParseLIST"<<endl;
     return true;
 }
 
 void executeLIST(){
+    logger<<"executeLIST"<<endl;
     cout<<"\nRELATIONS"<<endl;
 
     int rowCount = 0;

@@ -6,7 +6,7 @@
  */
 
 bool syntacticParseCLEAR(){
-
+    logger<<"syntacticParseCLEAR"<<endl;
     if(tokenizedQuery.size() != 2){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -17,9 +17,11 @@ bool syntacticParseCLEAR(){
 }
 
 bool semanticParseCLEAR(){
+    logger<<"semanticParseCLEAR"<<endl;
     return true;
 }
 
 void executeCLEAR(){
+    logger<<"executeCLEAR"<<endl;
     return;
 }

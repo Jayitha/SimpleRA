@@ -4,6 +4,7 @@
  * SYNTAX: LOAD relation_name
  */
 bool syntacticParseLOAD(){
+    logger<<"syntacticParseLOAD"<<endl;
     if(tokenizedQuery.size() != 2){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -14,9 +15,11 @@ bool syntacticParseLOAD(){
 }
 
 bool semanticParseLOAD(){
+    logger<<"semanticParseLOAD"<<endl;
     return true;
 }
 
 void executeLOAD(){
+    logger<<"executeLOAD"<<endl;
     return;
 }

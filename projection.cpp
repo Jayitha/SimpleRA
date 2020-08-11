@@ -4,6 +4,7 @@
  * SYNTAX: R <- PROJECT column_name1, ... FROM relation_name
  */
 bool syntacticParsePROJECTION(){
+    logger<<"syntacticParsePROJECTION"<<endl;
     if(tokenizedQuery.size() < 5 || *(tokenizedQuery.end()-2) != "FROM"){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -17,9 +18,11 @@ bool syntacticParsePROJECTION(){
 }
 
 bool semanticParsePROJECTION(){
+    logger<<"semanticParsePROJECTION"<<endl;
     return true;
 }
 
 void executePROJECTION(){
+    logger<<"executePROJECTION"<<endl;
     return;
 }

@@ -8,6 +8,7 @@
  * sorting_order = ASC | DESC 
  */
 bool syntacticParseSORT(){
+    logger<<"syntacticParseSORT"<<endl;
     if(tokenizedQuery.size()!= 8 || tokenizedQuery[4] != "FROM" || tokenizedQuery[6] != "IN"){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -29,9 +30,11 @@ bool syntacticParseSORT(){
 }
 
 bool semanticParseSORT(){
+    logger<<"semanticParseSORT"<<endl;
     return true;
 }
 
 void executeSORT(){
+    logger<<"executeSORT"<<endl;
     return;
 }
