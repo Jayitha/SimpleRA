@@ -18,12 +18,11 @@ bool Table::load(){
     vector<string> row;
     string line, word;
     while(getline(fin, line)){
-        stringstream s(line);  
-        while(getline(s, word, ',')) { 
-            row.push_back(word); 
-        } 
-
         if(this->rowCount == -1){
+            stringstream s(line);  
+            while(getline(s, word, ',')) { 
+                row.push_back(word); 
+            }
             for(auto columnName: row){
                 Column col(columnName);
                 this->columns.emplace_back(col);
@@ -31,6 +30,7 @@ bool Table::load(){
         }
         this->rowCount++;
     }
+    fin.close();
     if(this->rowCount == -1){
         return false;
     }
@@ -70,7 +70,7 @@ bool isTable(string relationName){
     return false;
 }
 
-Table getTable(string relationName){
+Table* getTable(string relationName){
     for(auto rel:tableIndex){
         if(rel.first == relationName)
             return rel.second;
@@ -78,8 +78,8 @@ Table getTable(string relationName){
 }
 
 bool isColumnFromTable(string columnName, string relationName){
-    Table rel = getTable(relationName);
-    if(rel.isColumn(columnName))
+    Table *rel = getTable(relationName);
+    if(rel->isColumn(columnName))
         return true;
     return false;
 }
