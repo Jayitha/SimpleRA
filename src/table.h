@@ -4,12 +4,14 @@ class Table{
 
     public:
 
-    string tableName;
-    string sourceFileName;
+    string tableName = "";
+    string sourceFileName = "";
     vector<Column> columns;
-
+    long long int rowCount = -1;
+    
+    Table();
     Table(string tableName);
-    void load();
+    bool load();
     bool isColumn(string columnName);
     Column getColumn(string columnName);
     ~Table();

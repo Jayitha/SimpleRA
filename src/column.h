@@ -15,8 +15,10 @@ class Column{
 
     public:
     
-    string columnName;
-    IndexingStrategy indexingStrategy;
+    string columnName = "";
+    IndexingStrategy indexingStrategy = NOTHING;
+
+    Column(string columnName);
 };
 
 extern ofstream logger;

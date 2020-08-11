@@ -1,19 +1,40 @@
 #include"table.h"
 
-Table::Table(string tableName = ""){
+Table::Table(string tableName){
     logger<<"Table::Table"<<endl;
     this->tableName = tableName;
     this->sourceFileName = "../data/"+tableName+".csv";
     this->columns.clear();
-    this->load();
+    this->rowCount = -1;
 }
 
-void Table::load(){
+Table::Table(){
+
+}
+
+bool Table::load(){
     logger<<"Table::load"<<endl;
-    if(this->tableName == "")
-        return;
-    tableIndex[this->tableName] = *this;
-    //TODO: Write code to load
+    fstream fin(this->sourceFileName.c_str(), ios::in);
+    vector<string> row;
+    string line, word;
+    while(getline(fin, line)){
+        stringstream s(line);  
+        while(getline(s, word, ',')) { 
+            row.push_back(word); 
+        } 
+
+        if(this->rowCount == -1){
+            for(auto columnName: row){
+                Column col(columnName);
+                this->columns.emplace_back(col);
+            }
+        }
+        this->rowCount++;
+    }
+    if(this->rowCount == -1){
+        return false;
+    }
+    return true;
 }
 
 
@@ -39,7 +60,6 @@ Column Table::getColumn(string columnName){
 
 Table::~Table(){
     logger<<"Table::~Table"<<endl;
-    tableIndex.erase(this->tableName);
 }
 
 bool isTable(string relationName){
