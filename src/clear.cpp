@@ -26,5 +26,12 @@ bool semanticParseCLEAR(){
 
 void executeCLEAR(){
     logger<<"executeCLEAR"<<endl;
+    Table *rel = tableIndex[parsedQuery.clearRelationName];
+    tableIndex.erase(parsedQuery.clearRelationName);
+    if(remove(rel->sourceFileName.c_str())){
+        logger<<"Error deleting file: "<<rel->sourceFileName;
+    }
+    //
+    delete rel;
     return;
 }

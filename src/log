@@ -9,6 +9,15 @@ semanticParseLOAD
 executeLOAD
 Table::Table
 Table::load
+ParsedQuery::clear
+
+Reading New Command: CLEAR a
+doCommand
+syntacticParse
+syntacticParseCLEAR
+semanticParse
+semanticParseCLEAR
+executeCLEAR
 Table::~Table
 ParsedQuery::clear
 
@@ -18,19 +27,6 @@ syntacticParse
 syntacticParseLOAD
 semanticParse
 semanticParseLOAD
-Table::~Table
-ParsedQuery::clear
-
-Reading New Command: a <- DISTINCT B
-doCommand
-syntacticParse
-syntacticParseDISTINCT
-semanticParse
-semanticParseDISTINCT
-Table::~Table
-ParsedQuery::clear
-
-Reading New Command: QUIT;
 ParsedQuery::clear
 
 Reading New Command: QUIT
