@@ -31,7 +31,6 @@ void executeCLEAR(){
     if(remove(rel->sourceFileName.c_str())){
         logger<<"Error deleting file: "<<rel->sourceFileName;
     }
-    //
     delete rel;
     return;
 }

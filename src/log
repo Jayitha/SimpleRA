@@ -11,6 +11,15 @@ Table::Table
 Table::load
 ParsedQuery::clear
 
+Reading New Command: PRINT a
+doCommand
+syntacticParse
+syntacticParsePRINT
+semanticParse
+semanticParsePRINT
+executePRINT
+ParsedQuery::clear
+
 Reading New Command: RENAME A TO D FROM a
 doCommand
 syntacticParse
@@ -22,14 +31,13 @@ Table::isColumn
 executeRENAME
 ParsedQuery::clear
 
-Reading New Command: RENAME D TO B FROM a
+Reading New Command: PRINT a
 doCommand
 syntacticParse
-syntacticParseRENAME
+syntacticParsePRINT
 semanticParse
-semanticParseRENAME
-Table::isColumn
-Table::isColumn
+semanticParsePRINT
+executePRINT
 ParsedQuery::clear
 
 Reading New Command: QUIT

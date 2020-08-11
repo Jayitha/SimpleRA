@@ -69,6 +69,28 @@ void Table::renameColumn(string fromColumnName, string toColumnName){
     return;
 }
 
+void Table::print(){
+    long long count = min((long long)10, this->rowCount);
+
+    //print headings
+    for(int i=0; i<this->columns.size(); i++){
+        if(i!=0)
+            cout<<", ";
+        cout<<this->columns[i].columnName;
+    }
+    cout<<endl;
+
+    fstream fin(this->sourceFileName.c_str(), ios::in);
+    string line;
+    getline(fin, line);
+    for(int i=0; i < count; i++){
+        getline(fin, line);
+        cout<<line<<endl;
+    }
+    fin.close();
+    printRowCount(count);
+}
+
 Table::~Table(){
     logger<<"Table::~Table"<<endl;
 }

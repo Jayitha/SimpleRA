@@ -22,3 +22,4 @@ class Column{
 };
 
 extern ofstream logger;
+void printRowCount(int rowCount);

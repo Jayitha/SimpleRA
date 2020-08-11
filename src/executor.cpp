@@ -20,8 +20,3 @@ void executeCommand(){
 
     return;
 }
-
-void printRowCount(int rowCount){
-    cout<<"\n\nRow Count: "<<rowCount<<endl;
-    return;
-}
