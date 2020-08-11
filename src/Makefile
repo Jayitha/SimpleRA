@@ -12,6 +12,9 @@ CXXFLAGS = -Wall -g
 server: server.o clear.o cross.o distinct.o index.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o table.o column.o
 	$(CXX) $(CXXFLAGS) -o server server.o clear.o cross.o distinct.o index.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o table.o column.o
 
+clean:
+	rm -f *.o *~ 
+
 server.o: server.cpp executor.h
 
 clear.o: clear.cpp executor.h
