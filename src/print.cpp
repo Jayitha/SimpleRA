@@ -25,5 +25,7 @@ bool semanticParsePRINT(){
 
 void executePRINT(){
     logger<<"executePRINT"<<endl;
+    Table *rel = getTable(parsedQuery.printRelationName);
+    rel->print();
     return;
 }
