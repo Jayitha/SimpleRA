@@ -1,33 +1,33 @@
 # Relational Algebra Grammar
 
-## Features
-- SELECTION COND FROM R
-- PROJECT list_of_columns FROM R
-- CROSS R S if common name renamed to R_name and S_name
-- RENAME column_name TO column_name FROM R
-- DISTINCT R
-- SORT R BY 
-- CLEAR R
-- LOAD R 
-- INDEX 
-
 ## Grammar
 
 ```
 Statement -> relation_name <- assignment_statement
-           | index_statement
-           | load_statement
-           | clear_statement
-           | print_statement
-           | LIST TABLES
-           | rename_statement
+           | non_assignment_statement
 
-assignment_statement -> selection_statement
-           | projection_statement
-           | cross_product_statement
-           | distinct_statement
-           | sort_statement
-           
+assignment_statement -> cross_product_statement
+                      | distinct_statement
+                      | projection_statement
+                      | selection_statement
+                      | sort_statement
+                       
+non_assignment_statement -> clear_statement 
+                           | index_statement
+                           | list_statement
+                           | load_statement
+                           | print_statement
+                           | quit_statement
+                           | rename_statement
+
+cross_product_statement -> CROSS relation_name relation_name
+
+distinct_statement -> DISTINCT relation_name
+
+projection_statement -> PROJECT projection_list FROM relation_name
+
+projection_list -> projection_list, column_name 
+                 | column_name
 
 selection_statement -> SELECT condition FROM relation_name
 
@@ -36,28 +36,24 @@ condition -> column_name binop column_name
 
 binop -> > | < | == | != | <= | >= | => | =< 
 
-projection_statement -> PROJECT projection_list FROM relation_name
-
-projection_list -> projection_list, column_name 
-                 | column_name
-
-cross_product_statement -> CROSS relation_name relation_name
-
-rename_statement -> RENAME column_name TO column_name FROM relation_name
-
-distinct_statement -> DISTINCT relation_name
-
 sort_statement -> SORT relation_name BY column_name IN sorting_order
 
 sorting_order -> ASC | DESC
 
 clear_statement -> CLEAR relation_name
 
+index_statement -> INDEX ON column_name FROM relation_name USING indexing_strategy
+
+indexing_strategy -> HASH | BTREE | NOTHING;
+
+list_statement -> LIST TABLES;
+
 load_statement -> LOAD relation_name
 
 print_statement -> PRINT relation_name
 
-index_statement -> INDEX ON column_name FROM relation_name USING indexing_strategy
+quit_statement -> QUIT
 
-indexing_strategy -> HASH | BTREE | NOTHING;
+rename_statement -> RENAME column_name TO column_name FROM relation_name
+
 ```
