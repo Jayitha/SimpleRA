@@ -3,7 +3,7 @@
 using namespace std;
 
 bool syntacticParse(){
-
+    logger<<"syntacticParse"<<endl;
     string possibleQueryType = tokenizedQuery[0];
 
     if(possibleQueryType.size() < 2){
@@ -49,45 +49,47 @@ bool syntacticParse(){
     return false;
 }
 
+
 void ParsedQuery::clear(){
-        this->queryType = UNDETERMINED;
+    logger<<"ParsedQuery::clear"<<endl;
+    this->queryType = UNDETERMINED;
 
-        this->clearRelationName = "";
+    this->clearRelationName = "";
 
-        this->crossResultRelationName = "";
-        this->crossFirstRelationName = "";
-        this->crossSecondRelationName = "";
+    this->crossResultRelationName = "";
+    this->crossFirstRelationName = "";
+    this->crossSecondRelationName = "";
 
-        this->distinctResultRelationName = "";
-        this->distinctRelationName = "";
+    this->distinctResultRelationName = "";
+    this->distinctRelationName = "";
 
-        this->indexingStrategy = NOTHING;
-        this->indexColumnName = "";
-        this->indexRelationName = "";
+    this->indexingStrategy = NOTHING;
+    this->indexColumnName = "";
+    this->indexRelationName = "";
 
-        this->loadRelationName = "";
+    this->loadRelationName = "";
 
-        this->printRelationName = "";
+    this->printRelationName = "";
 
-        this->projectionResultRelationName = "";
-        this->projectionColumnList.clear();
-        this->projectionRelationName = "";
+    this->projectionResultRelationName = "";
+    this->projectionColumnList.clear();
+    this->projectionRelationName = "";
 
-        this->renameFromColumnName = "";
-        this->renameToColumnName = "";
-        this->renameRelationName = "";
+    this->renameFromColumnName = "";
+    this->renameToColumnName = "";
+    this->renameRelationName = "";
 
-        this->selectType = NO_SELECT_CLAUSE;
-        this->binaryOperator = NO_BINOP_CLAUSE;
-        this->selectionResultRelationName = "";
-        this->selectionRelationName = "";
-        this->selectionFirstColumnName = "";
-        this->selectionSecondColumnName = "";
-        this->selectionIntLiteral = 0;
+    this->selectType = NO_SELECT_CLAUSE;
+    this->binaryOperator = NO_BINOP_CLAUSE;
+    this->selectionResultRelationName = "";
+    this->selectionRelationName = "";
+    this->selectionFirstColumnName = "";
+    this->selectionSecondColumnName = "";
+    this->selectionIntLiteral = 0;
 
-        this->sortingStrategy = NO_SORT_CLAUSE;
-        this->sortResultRelationName = "";
-        this->sortColumnName = "";
-        this->sortRelationName = "";
+    this->sortingStrategy = NO_SORT_CLAUSE;
+    this->sortResultRelationName = "";
+    this->sortColumnName = "";
+    this->sortRelationName = "";
     
 }

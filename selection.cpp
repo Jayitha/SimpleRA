@@ -4,6 +4,7 @@
  * SYNTAX: R <- SELECT column_name bin_op [column_name | int_literal] FROM relation_name
  */
 bool syntacticParseSELECTION(){
+    logger<<"syntacticParseSELECTION"<<endl;
     if(tokenizedQuery.size()!=8 || tokenizedQuery[6]!="FROM"){
         cout<<"SYNTAC ERROR"<<endl;
         return false;
@@ -43,9 +44,11 @@ bool syntacticParseSELECTION(){
 }
 
 bool semanticParseSELECTION(){
+    logger<<"semanticParseSELECTION"<<endl;
     return true;
 }
 
 void executeSELECTION(){
+    logger<<"executeSELECTION"<<endl;
     return;
 }

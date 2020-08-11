@@ -5,7 +5,7 @@
  * indexing_strategy: ASC | DESC | NOTHING
  */
 bool syntacticParseINDEX(){
-
+    logger<<"syntacticParseINDEX"<<endl;
     if(tokenizedQuery.size() != 7 || tokenizedQuery[1] != "ON" 
     || tokenizedQuery[3]!= "FROM" || tokenizedQuery[5] != "USING"){
         cout<<"SYNTAX ERROR"<<endl;
@@ -29,9 +29,11 @@ bool syntacticParseINDEX(){
 }
 
 bool semanticParseINDEX(){
+    logger<<"semanticParseINDEX"<<endl;
     return true;
 }
 
 void executeINDEX(){
+    logger<<"executeINDEX"<<endl;
     return;
 }

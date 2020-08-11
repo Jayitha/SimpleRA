@@ -5,7 +5,7 @@
  * SYNTAX: R <- DISTINCT relation_name
  */
 bool syntacticParseDISTINCT(){
-
+    logger<<"syntacticParseDISTINCT"<<endl;
     if(tokenizedQuery.size() != 4){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -17,9 +17,11 @@ bool syntacticParseDISTINCT(){
 }
 
 bool semanticParseDISTINCT(){
+    logger<<"semanticParseDISTINCT"<<endl;
     return true;
 }
 
 void executeDISTINCT(){
+    logger<<"executeDISTINCT"<<endl;
     return;
 }
