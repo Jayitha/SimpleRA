@@ -3,13 +3,13 @@
  * @brief File contains method to process SORT commands.
  * 
  * syntax:
- * R <- SORT column_name FROM relation_name IN sorting_order
+ * R <- SORT relation_name BY column_name IN sorting_order
  * 
  * sorting_order = ASC | DESC 
  */
 bool syntacticParseSORT(){
     logger<<"syntacticParseSORT"<<endl;
-    if(tokenizedQuery.size()!= 8 || tokenizedQuery[4] != "FROM" || tokenizedQuery[6] != "IN"){
+    if(tokenizedQuery.size()!= 8 || tokenizedQuery[4] != "BY" || tokenizedQuery[6] != "IN"){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
     }

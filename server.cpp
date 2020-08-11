@@ -23,18 +23,17 @@ int main(void){
     logger.open("log", ios::out);
 
     while(1){
-        logger<<"\nReading New Command: ";
         cout<<"\n> ";
         tokenizedQuery.clear();
         parsedQuery.clear();
+        logger<<"Reading New Command: ";
         getline(cin, command);
         logger<<command<<endl;
+        
         auto words_begin = std::sregex_iterator(command.begin(), command.end(), delim);
         auto words_end = std::sregex_iterator();
-        for (std::sregex_iterator i = words_begin; i != words_end; ++i){
+        for (std::sregex_iterator i = words_begin; i != words_end; ++i)
             tokenizedQuery.emplace_back((*i).str());
-            cout<<(*i).str()<<endl;
-        }
 
         if(tokenizedQuery.size() == 1 && tokenizedQuery.front() == "QUIT"){
             break;
