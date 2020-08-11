@@ -1,9 +1,36 @@
 ParsedQuery::clear
-Reading New Command: R <- JOIN A, B ON A == B
+
+Reading New Command: LOAD a
 doCommand
 syntacticParse
-syntacticParseJOIN
+syntacticParseLOAD
 semanticParse
-semanticParseJOIN
+semanticParseLOAD
+executeLOAD
+Table::Table
+Table::load
+Table::~Table
 ParsedQuery::clear
+
+Reading New Command: LOAD a
+doCommand
+syntacticParse
+syntacticParseLOAD
+semanticParse
+semanticParseLOAD
+Table::~Table
+ParsedQuery::clear
+
+Reading New Command: a <- DISTINCT B
+doCommand
+syntacticParse
+syntacticParseDISTINCT
+semanticParse
+semanticParseDISTINCT
+Table::~Table
+ParsedQuery::clear
+
+Reading New Command: QUIT;
+ParsedQuery::clear
+
 Reading New Command: QUIT

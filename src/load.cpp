@@ -30,5 +30,13 @@ bool semanticParseLOAD(){
 
 void executeLOAD(){
     logger<<"executeLOAD"<<endl;
+
+    Table rel(parsedQuery.loadRelationName);
+    if(!rel.load())
+        delete &rel;
+    else{
+        tableIndex[parsedQuery.loadRelationName] = rel;
+        cout<<"Loaded Table. Row Count: "<<rel.rowCount;
+    }
     return;
 }
