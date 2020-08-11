@@ -1,5 +1,3 @@
-# Makefile for Writing Make Files Example
-
 # *****************************************************
 # Variables to control Makefile operation
 
@@ -9,8 +7,8 @@ CXXFLAGS = -Wall -g
 # ****************************************************
 # Targets needed to bring the executable up to date
 
-server: server.o clear.o cross.o distinct.o index.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o table.o column.o
-	$(CXX) $(CXXFLAGS) -o server server.o clear.o cross.o distinct.o index.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o table.o column.o
+server: server.o clear.o cross.o distinct.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o table.o column.o
+	$(CXX) $(CXXFLAGS) -o server server.o clear.o cross.o distinct.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o table.o column.o
 
 clean:
 	rm -f *.o *~ 
@@ -24,6 +22,8 @@ cross.o: cross.cpp executor.h
 distinct.o: distinct.cpp executor.h
 
 index.o: index.cpp executor.h
+
+join.o: join.cpp executor.h
 
 list.o: list.cpp executor.h
 

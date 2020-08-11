@@ -1,17 +1,9 @@
 ParsedQuery::clear
-Reading New Command: LOAD A
+Reading New Command: R <- JOIN A, B ON A == B
 doCommand
 syntacticParse
-syntacticParseLOAD
+syntacticParseJOIN
 semanticParse
-semanticParseLOAD
-ParsedQuery::clear
-Reading New Command: LOAD a
-doCommand
-syntacticParse
-syntacticParseLOAD
-semanticParse
-semanticParseLOAD
-executeLOAD
+semanticParseJOIN
 ParsedQuery::clear
 Reading New Command: QUIT

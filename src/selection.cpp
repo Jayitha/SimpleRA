@@ -16,17 +16,17 @@ bool syntacticParseSELECTION(){
 
     string binaryOperator = tokenizedQuery[4];
     if(binaryOperator == "<")
-        parsedQuery.binaryOperator = LESS_THAN;
+        parsedQuery.selectionBinaryOperator = LESS_THAN;
     else if(binaryOperator == ">")
-        parsedQuery.binaryOperator = GREATER_THAN;
+        parsedQuery.selectionBinaryOperator = GREATER_THAN;
     else if(binaryOperator == ">=" || binaryOperator == "=>")
-        parsedQuery.binaryOperator = GEQ;
+        parsedQuery.selectionBinaryOperator = GEQ;
     else if(binaryOperator == "<=" || binaryOperator == "=<")
-        parsedQuery.binaryOperator = LEQ;
+        parsedQuery.selectionBinaryOperator = LEQ;
     else if(binaryOperator == "==")
-        parsedQuery.binaryOperator = EQUAL;
+        parsedQuery.selectionBinaryOperator = EQUAL;
     else if(binaryOperator == "!=")
-        parsedQuery.binaryOperator = NOT_EQUAL;
+        parsedQuery.selectionBinaryOperator = NOT_EQUAL;
     else{
         cout<<"SYNTAC ERROR"<<endl;
         return false;
