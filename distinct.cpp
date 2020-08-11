@@ -1,5 +1,9 @@
 #include"executor.h"
 
+/**
+ * @brief 
+ * SYNTAX: R <- DISTINCT relation_name
+ */
 bool syntacticParseDISTINCT(){
 
     if(tokenizedQuery.size() != 4){

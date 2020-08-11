@@ -6,8 +6,8 @@ Table::Table(string tableName = ""){
     this->load();
 }
 
-void Table::load(string tableName = ""){
-    if(tableName == "")
+void Table::load(){
+    if(this->tableName == "")
         return;
     tableIndex[this->tableName] = *this;
     //TODO: Write code to load
@@ -30,9 +30,8 @@ Column Table::getColumn(string columnName){
             return col;
         }
     }
-    return;
 }
 
 Table::~Table(){
-    tableIndex.erase(this->getTableName());
+    tableIndex.erase(this->tableName);
 }

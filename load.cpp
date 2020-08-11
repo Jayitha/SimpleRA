@@ -1,5 +1,8 @@
 #include"executor.h"
-
+/**
+ * @brief 
+ * SYNTAX: LOAD relation_name
+ */
 bool syntacticParseLOAD(){
     if(tokenizedQuery.size() != 2){
         cout<<"SYNTAX ERROR"<<endl;

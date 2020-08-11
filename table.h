@@ -1,16 +1,14 @@
 #include"column.h"
 
 class Table{
-    
-    string tableName;
-    vector<Column> columns;
 
     public:
 
+    string tableName;
+    vector<Column> columns;
+
     Table(string tableName);
-    void load(string tableName);
-    string getTableName(void);
-    vector<Column> getColumns();
+    void load();
     bool isColumn(string columnName);
     Column getColumn(string columnName);
     ~Table();

@@ -1,5 +1,9 @@
 #include"executor.h"
 
+/**
+ * @brief 
+ * SYNTAX: R <- CROSS relation_name relation_name
+ */
 bool syntacticParseCROSS(){
 
     if(tokenizedQuery.size() != 5){

@@ -1,5 +1,8 @@
 #include"executor.h"
-
+/**
+ * @brief 
+ * SYNTAX: PRINT relation_name
+ */
 bool syntacticParsePRINT(){
     if(tokenizedQuery.size() != 2){
         cout<<"SYNTAX ERROR"<<endl;

@@ -1,5 +1,10 @@
 #include"executor.h"
 
+/**
+ * @brief 
+ * SYNTAX: CLEAR table_name 
+ */
+
 bool syntacticParseCLEAR(){
 
     if(tokenizedQuery.size() != 2){
