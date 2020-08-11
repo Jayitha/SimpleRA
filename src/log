@@ -1,0 +1,10 @@
+ParsedQuery::clear
+Reading New Command: INDEX ON a FROM b USING BTREE
+doCommand
+syntacticParse
+syntacticParseINDEX
+semanticParse
+semanticParseINDEX
+executeINDEX
+ParsedQuery::clear
+Reading New Command: QUIT
