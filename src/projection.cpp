@@ -30,9 +30,9 @@ bool semanticParsePROJECTION(){
         return false;
     }
 
-    Table rel = getTable(parsedQuery.projectionRelationName);
+    Table *rel = getTable(parsedQuery.projectionRelationName);
     for(auto col: parsedQuery.projectionColumnList){
-        if(!rel.isColumn(col)){
+        if(!rel->isColumn(col)){
             cout<<"SEMANTIC ERROR: Column doesn't exist in relation";
             return false;
         }

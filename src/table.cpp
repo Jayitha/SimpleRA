@@ -20,7 +20,8 @@ bool Table::load(){
     while(getline(fin, line)){
         if(this->rowCount == -1){
             stringstream s(line);  
-            while(getline(s, word, ',')) { 
+            while(getline(s, word, ',')) {
+                word.erase(std::remove_if(word.begin(), word.end(), ::isspace), word.end()); 
                 row.push_back(word); 
             }
             for(auto columnName: row){
@@ -39,7 +40,7 @@ bool Table::load(){
 
 
 bool Table::isColumn(string columnName){
-    logger<<"Table::icColumn"<<endl;
+    logger<<"Table::isColumn"<<endl;
     for(auto col: this->columns){
         if(col.columnName == columnName){
             return true;
@@ -56,6 +57,16 @@ Column Table::getColumn(string columnName){
             return col;
         }
     }
+}
+
+void Table::renameColumn(string fromColumnName, string toColumnName){
+    for(int i=0; i<this->columns.size(); i++){
+        if(columns[i].columnName == fromColumnName){
+            columns[i].columnName = toColumnName;
+            break;
+        }
+    }
+    return;
 }
 
 Table::~Table(){

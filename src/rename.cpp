@@ -29,7 +29,7 @@ bool semanticParseRENAME(){
         return false;
     }
 
-    if(isColumnFromTable(parsedQuery.renameToColumnName, parsedQuery.clearRelationName)){
+    if(isColumnFromTable(parsedQuery.renameToColumnName, parsedQuery.renameRelationName)){
         cout<<"SEMANTIC ERROR: Column with name already exists"<<endl;
         return false;
     }
@@ -38,5 +38,7 @@ bool semanticParseRENAME(){
 
 void executeRENAME(){
     logger<<"executeRENAME"<<endl;
+    Table *rel = getTable(parsedQuery.renameRelationName);
+    rel->renameColumn(parsedQuery.renameFromColumnName, parsedQuery.renameToColumnName);
     return;
 }
