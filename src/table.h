@@ -14,6 +14,7 @@ class Table{
     bool load();
     bool isColumn(string columnName);
     Column getColumn(string columnName);
+    void renameColumn(string fromColumnName, string toColumnName);
     ~Table();
 };
 

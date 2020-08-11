@@ -11,22 +11,25 @@ Table::Table
 Table::load
 ParsedQuery::clear
 
-Reading New Command: CLEAR a
+Reading New Command: RENAME A TO D FROM a
 doCommand
 syntacticParse
-syntacticParseCLEAR
+syntacticParseRENAME
 semanticParse
-semanticParseCLEAR
-executeCLEAR
-Table::~Table
+semanticParseRENAME
+Table::isColumn
+Table::isColumn
+executeRENAME
 ParsedQuery::clear
 
-Reading New Command: LOAD a
+Reading New Command: RENAME D TO B FROM a
 doCommand
 syntacticParse
-syntacticParseLOAD
+syntacticParseRENAME
 semanticParse
-semanticParseLOAD
+semanticParseRENAME
+Table::isColumn
+Table::isColumn
 ParsedQuery::clear
 
 Reading New Command: QUIT

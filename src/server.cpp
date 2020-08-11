@@ -6,7 +6,7 @@ using namespace std;
 
 ParsedQuery parsedQuery;
 vector<string> tokenizedQuery;
-unordered_map<string, Table> tableIndex;
+unordered_map<string, Table*> tableIndex;
 ofstream logger;
 
 void doCommand(){
