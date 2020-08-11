@@ -6,7 +6,7 @@ bool syntacticParse(){
     logger<<"syntacticParse"<<endl;
     string possibleQueryType = tokenizedQuery[0];
 
-    if(possibleQueryType.size() < 2){
+    if(tokenizedQuery.size() < 2){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
     }

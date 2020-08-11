@@ -1,2 +1,71 @@
-
-Reading New Command: ParsedQuery::clear
+ParsedQuery::clear
+Reading New Command: DISTINCT A
+doCommand
+syntacticParse
+ParsedQuery::clear
+Reading New Command: R <- DISTINCT A
+doCommand
+syntacticParse
+syntacticParseDISTINCT
+semanticParse
+semanticParseDISTINCT
+executeDISTINCT
+ParsedQuery::clear
+Reading New Command: RENAME R1 TO R2 FROM A
+doCommand
+syntacticParse
+syntacticParseRENAME
+semanticParse
+semanticParseRENAME
+executeRENAME
+ParsedQuery::clear
+Reading New Command: R <- PROJECT R1, R2, R3 FROM A
+doCommand
+syntacticParse
+syntacticParsePROJECTION
+semanticParse
+semanticParsePROJECTION
+executePROJECTION
+ParsedQuery::clear
+Reading New Command: R <- PROJECT R1 FROM A
+doCommand
+syntacticParse
+syntacticParsePROJECTION
+semanticParse
+semanticParsePROJECTION
+executePROJECTION
+ParsedQuery::clear
+Reading New Command: R <- PROJECT R1 FROM A A
+doCommand
+syntacticParse
+syntacticParsePROJECTION
+ParsedQuery::clear
+Reading New Command: LIST TABLES
+doCommand
+syntacticParse
+syntacticParseLIST
+semanticParse
+semanticParseLIST
+executeLIST
+ParsedQuery::clear
+Reading New Command: SELECT R <= A FROM B
+doCommand
+syntacticParse
+ParsedQuery::clear
+Reading New Command: R <- SELECT R <= A FROM B
+doCommand
+syntacticParse
+syntacticParseSELECTION
+semanticParse
+semanticParseSELECTION
+executeSELECTION
+ParsedQuery::clear
+Reading New Command: R <- SELECT R <= 3 FROM B
+doCommand
+syntacticParse
+syntacticParseSELECTION
+semanticParse
+semanticParseSELECTION
+executeSELECTION
+ParsedQuery::clear
+Reading New Command: QUIT
