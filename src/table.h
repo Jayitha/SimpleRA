@@ -5,6 +5,7 @@ class Table{
     public:
 
     string tableName;
+    string sourceFileName;
     vector<Column> columns;
 
     Table(string tableName);
@@ -15,3 +16,8 @@ class Table{
 };
 
 extern unordered_map<string, Table> tableIndex;
+
+bool isTable(string relationName);
+Table getTable(string tableName);
+bool isColumnFromTable(string columnName, string relationName);
+bool isFileExists(string relationName);

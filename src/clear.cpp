@@ -2,7 +2,7 @@
 
 /**
  * @brief 
- * SYNTAX: CLEAR table_name 
+ * SYNTAX: CLEAR <relation_name> 
  */
 
 bool syntacticParseCLEAR(){
@@ -18,7 +18,10 @@ bool syntacticParseCLEAR(){
 
 bool semanticParseCLEAR(){
     logger<<"semanticParseCLEAR"<<endl;
-    return true;
+    if(isTable(parsedQuery.clearRelationName))
+        return true;
+    cout<<"SEMANTIC ERROR: No such relation exists"<<endl;
+    return false;
 }
 
 void executeCLEAR(){

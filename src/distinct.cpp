@@ -18,6 +18,16 @@ bool syntacticParseDISTINCT(){
 
 bool semanticParseDISTINCT(){
     logger<<"semanticParseDISTINCT"<<endl;
+
+    if(isTable(parsedQuery.distinctResultRelationName)){
+        cout<<"SEMANTIC ERROR: Resultant relation already exists"<<endl;
+        return false;
+    } 
+
+    if(!isTable(parsedQuery.distinctRelationName)){
+        cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
+        return false;
+    }
     return true;
 }
 

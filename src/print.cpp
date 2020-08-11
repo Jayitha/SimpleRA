@@ -16,6 +16,10 @@ bool syntacticParsePRINT(){
 
 bool semanticParsePRINT(){
     logger<<"semanticParsePRINT"<<endl;
+    if(!isTable(parsedQuery.printRelationName)){
+        cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
+        return false;
+    }
     return true;
 }
 

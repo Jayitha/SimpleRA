@@ -18,6 +18,21 @@ bool syntacticParseRENAME(){
 
 bool semanticParseRENAME(){
     logger<<"semanticParseRENAME"<<endl;
+
+    if(!isTable(parsedQuery.renameRelationName)){
+        cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
+        return false;
+    }
+
+    if(!isColumnFromTable(parsedQuery.renameFromColumnName, parsedQuery.renameRelationName)){
+        cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
+        return false;
+    }
+
+    if(isColumnFromTable(parsedQuery.renameToColumnName, parsedQuery.clearRelationName)){
+        cout<<"SEMANTIC ERROR: Column with name already exists"<<endl;
+        return false;
+    }
     return true;
 }
 
