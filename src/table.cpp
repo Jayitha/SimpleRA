@@ -3,6 +3,7 @@
 Table::Table(string tableName = ""){
     logger<<"Table::Table"<<endl;
     this->tableName = tableName;
+    this->sourceFileName = "../data/"+tableName+".csv";
     this->columns.clear();
     this->load();
 }
@@ -39,4 +40,32 @@ Column Table::getColumn(string columnName){
 Table::~Table(){
     logger<<"Table::~Table"<<endl;
     tableIndex.erase(this->tableName);
+}
+
+bool isTable(string relationName){
+    for(auto rel: tableIndex){
+        if(rel.first == relationName)
+            return true;
+    }
+    return false;
+}
+
+Table getTable(string relationName){
+    for(auto rel:tableIndex){
+        if(rel.first == relationName)
+            return rel.second;
+    }
+}
+
+bool isColumnFromTable(string columnName, string relationName){
+    Table rel = getTable(relationName);
+    if(rel.isColumn(columnName))
+        return true;
+    return false;
+}
+
+bool isFileExists(string relationName){
+    string fileName = "../data/"+relationName+".csv";
+    struct stat buffer;
+    return (stat (fileName.c_str(), &buffer) == 0); 
 }

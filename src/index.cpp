@@ -30,6 +30,15 @@ bool syntacticParseINDEX(){
 
 bool semanticParseINDEX(){
     logger<<"semanticParseINDEX"<<endl;
+    if(!isTable(parsedQuery.indexRelationName))
+    {
+        cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
+        return false;
+    }
+    if(!isColumnFromTable(parsedQuery.indexColumnName, parsedQuery.indexRelationName)){
+        cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
+        return false;
+    }
     return true;
 }
 

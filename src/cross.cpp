@@ -19,6 +19,15 @@ bool syntacticParseCROSS(){
 
 bool semanticParseCROSS(){
     logger<<"semanticParseCROSS"<<endl;
+    if(isTable(parsedQuery.crossResultRelationName)){
+        cout<<"SEMANTIC ERROR: Resultant relation already exists"<<endl;
+        return false;
+    } 
+
+    if(!isTable(parsedQuery.crossFirstRelationName) || !isTable(parsedQuery.crossSecondRelationName)){
+        cout<<"SEMANTIC ERROR: Cross relations don't exist"<<endl;
+        return false;
+    }
     return true;
 }
 

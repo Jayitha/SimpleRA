@@ -31,6 +31,22 @@ bool syntacticParseSORT(){
 
 bool semanticParseSORT(){
     logger<<"semanticParseSORT"<<endl;
+
+    if(isTable(parsedQuery.sortResultRelationName)){
+        cout<<"SEMANTIC ERROR: Resultant relation already exists"<<endl;
+        return false;
+    }
+
+    if(!isTable(parsedQuery.sortRelationName)){
+        cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
+        return false;
+    }
+
+    if(!isColumnFromTable(parsedQuery.sortColumnName, parsedQuery.sortRelationName)){
+        cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
+        return false;
+    }
+
     return true;
 }
 

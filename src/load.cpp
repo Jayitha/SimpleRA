@@ -16,6 +16,15 @@ bool syntacticParseLOAD(){
 
 bool semanticParseLOAD(){
     logger<<"semanticParseLOAD"<<endl;
+    if(isTable(parsedQuery.loadRelationName)){
+        cout<<"SEMANTIC ERROR: Relation already exists"<<endl;
+        return false;
+    }
+
+    if(!isFileExists(parsedQuery.loadRelationName)){
+        cout<<"SEMANTIC ERROR: Data file doesn't exist"<<endl;
+        return false;
+    }
     return true;
 }
 

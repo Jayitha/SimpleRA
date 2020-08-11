@@ -45,6 +45,28 @@ bool syntacticParseSELECTION(){
 
 bool semanticParseSELECTION(){
     logger<<"semanticParseSELECTION"<<endl;
+
+    if(isTable(parsedQuery.selectionResultRelationName)){
+        cout<<"SEMANTIC ERROR: Resultant relation already exists"<<endl;
+        return false;
+    }
+
+    if(!isTable(parsedQuery.selectionRelationName)){
+        cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
+        return false;
+    }
+
+    if(!isColumnFromTable(parsedQuery.selectionFirstColumnName, parsedQuery.selectionRelationName)){
+        cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
+        return false;
+    }
+
+    if(parsedQuery.selectType == COLUMN){
+        if(!isColumnFromTable(parsedQuery.selectionSecondColumnName, parsedQuery.selectionRelationName)){
+            cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
+            return false;
+        }
+    }
     return true;
 }
 
