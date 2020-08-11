@@ -49,6 +49,9 @@ bool syntacticParse(){
     return false;
 }
 
+ParsedQuery::ParsedQuery(){
+
+}
 
 void ParsedQuery::clear(){
     logger<<"ParsedQuery::clear"<<endl;

@@ -83,6 +83,7 @@ class ParsedQuery{
     string sortColumnName = "";
     string sortRelationName = "";
 
+    ParsedQuery();
     void clear();
 };
 
