@@ -8,6 +8,7 @@ Statement -> relation_name <- assignment_statement
 
 assignment_statement -> cross_product_statement
                       | distinct_statement
+                      | join_statement
                       | projection_statement
                       | selection_statement
                       | sort_statement
@@ -23,6 +24,8 @@ non_assignment_statement -> clear_statement
 cross_product_statement -> CROSS relation_name relation_name
 
 distinct_statement -> DISTINCT relation_name
+
+join_statement -> JOIN relation_name, relation_name ON column_name bin_op column_name
 
 projection_statement -> PROJECT projection_list FROM relation_name
 
