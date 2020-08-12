@@ -42,6 +42,16 @@ bool semanticParsePROJECTION(){
 
 void executePROJECTION(){
     logger<<"executePROJECTION"<<endl;
-
+    Table *resultRel = createNewTable(parsedQuery.projectionResultRelationName, parsedQuery.projectionColumnList);
+    Table *rel = tableIndex[parsedQuery.projectionRelationName];
+    rel->initializeCursor();
+    while(rel->getNext()){
+        for(auto columnName: parsedQuery.projectionColumnList){
+            resultRel->row[columnName] = rel->row[columnName];
+        }
+        resultRel->writeToSourceFile();
+    }
+    resultRel->closeFilePointer();
+    rel->closeFilePointer();
     return;
 }
