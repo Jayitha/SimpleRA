@@ -70,7 +70,37 @@ bool semanticParseSELECTION(){
     return true;
 }
 
+bool evaluateBinOp(int value1, int value2, BinaryOperator binaryOperator){
+    switch(binaryOperator){
+        case LESS_THAN: return (value1 < value2);
+        case GREATER_THAN: return (value1 > value2);
+        case LEQ: return (value1 <= value2);
+        case GEQ: return (value1 >= value2);
+        case EQUAL: return (value1 == value2);
+        case NOT_EQUAL: return (value1 != value2);
+        default: return false;
+    }
+}
+
 void executeSELECTION(){
     logger<<"executeSELECTION"<<endl;
+
+    Table *rel = tableIndex[parsedQuery.selectionRelationName];
+    Table *resultRel = createNewTable(parsedQuery.selectionResultRelationName, rel->columns);
+    rel->initializeCursor();
+    while(rel->getNext()){
+        resultRel->row = rel->row;
+        int value1 = rel->row[parsedQuery.selectionFirstColumnName];
+        int value2;
+        if(parsedQuery.selectType == INT_LITERAL)
+            value2 = parsedQuery.selectionIntLiteral;
+        else
+            value2 = rel->row[parsedQuery.selectionSecondColumnName];
+        logger<<value1<<value2<<endl;
+        if(evaluateBinOp(value1, value2, parsedQuery.selectionBinaryOperator))
+            resultRel->writeToSourceFile();
+    }
+    resultRel->closeFilePointer();
+    rel->closeFilePointer();
     return;
 }
