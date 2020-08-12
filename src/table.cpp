@@ -5,6 +5,7 @@ Table::Table(string tableName){
     this->tableName = tableName;
     this->sourceFileName = "../data/"+tableName+".csv";
     this->columns.clear();
+    this->row.empty();
     this->rowCount = -1;
 }
 
@@ -14,7 +15,7 @@ Table::Table(){
 
 bool Table::load(){
     logger<<"Table::load"<<endl;
-    fstream fin(this->sourceFileName.c_str(), ios::in);
+    fstream fin(this->sourceFileName, ios::in);
     vector<string> row;
     string line, word;
     while(getline(fin, line)){
@@ -23,6 +24,7 @@ bool Table::load(){
             while(getline(s, word, ',')) {
                 word.erase(std::remove_if(word.begin(), word.end(), ::isspace), word.end()); 
                 row.push_back(word); 
+                this->row[word] = 0;
             }
             for(auto columnName: row){
                 Column col(columnName);
@@ -63,6 +65,8 @@ void Table::renameColumn(string fromColumnName, string toColumnName){
     for(int i=0; i<this->columns.size(); i++){
         if(columns[i].columnName == fromColumnName){
             columns[i].columnName = toColumnName;
+            this->row.erase(fromColumnName);
+            this->row[toColumnName] = 0;
             break;
         }
     }
@@ -89,6 +93,44 @@ void Table::print(){
     }
     fin.close();
     printRowCount(count);
+}
+
+void Table::initializeCursor(){
+    this->filePointer.open(this->sourceFileName, ios::in);
+    string headers;
+    getline(filePointer, headers);
+    return;
+}
+
+bool Table::getNext(){
+    string line;
+    if(getline(filePointer, line)){
+        stringstream s(line);
+        string word;
+        int ind = 0;
+        while(getline(s, word, ',')) {
+            word.erase(std::remove_if(word.begin(), word.end(), ::isspace), word.end()); 
+            this->row[this->columns[ind].columnName] = stoi(word);
+            ind++;
+        }
+        return true;
+    }
+    return false;
+}
+
+void Table::writeToSourceFile(){
+    logger<<"Table::writeToSourceFile"<<endl;
+    for(int i=0; i<this->columns.size(); i++){
+        if(i!=0)
+            filePointer<<", ";
+        filePointer<<this->row[this->columns[i].columnName];
+    }
+    filePointer<<endl;
+    this->rowCount++;
+}
+
+void Table::closeFilePointer(){
+    this->filePointer.close();
 }
 
 Table::~Table(){
@@ -121,4 +163,22 @@ bool isFileExists(string relationName){
     string fileName = "../data/"+relationName+".csv";
     struct stat buffer;
     return (stat (fileName.c_str(), &buffer) == 0); 
+}
+
+Table* createNewTable(string relationName, vector<Column> columns){
+    Table *rel = new Table(relationName);
+    tableIndex[relationName] = rel;
+    rel->columns = columns;
+    for(auto col: columns)
+        rel->row[col.columnName] = 0;
+    rel->filePointer.open(rel->sourceFileName, ios::out);
+
+    for(int i=0; i<columns.size(); i++){
+        if(i!=0)
+            rel->filePointer<<", ";
+        rel->filePointer<<columns[i].columnName;
+    }
+    rel->filePointer<<endl;
+    rel->rowCount++;
+    return rel;
 }

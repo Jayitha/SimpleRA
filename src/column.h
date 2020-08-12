@@ -23,3 +23,4 @@ class Column{
 
 extern ofstream logger;
 void printRowCount(int rowCount);
+extern uint BLOCK_SIZE;

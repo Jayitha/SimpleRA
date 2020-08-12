@@ -1,13 +1,14 @@
 //Server Code
 #include"executor.h"
 
-
 using namespace std;
 
 ParsedQuery parsedQuery;
 vector<string> tokenizedQuery;
 unordered_map<string, Table*> tableIndex;
 ofstream logger;
+uint BLOCK_SIZE = 10;
+
 
 void doCommand(){
     logger<<"doCommand"<<endl;
@@ -37,6 +38,12 @@ int main(void){
 
         if(tokenizedQuery.size() == 1 && tokenizedQuery.front() == "QUIT"){
             break;
+        }
+
+        if(tokenizedQuery.size() == 2 && tokenizedQuery.front() == "BLOCK_SIZE"){
+            BLOCK_SIZE = stoi(tokenizedQuery[1]);
+            logger<<"Block size set to: "<<BLOCK_SIZE<<endl;
+            continue;
         }
 
         if(tokenizedQuery.empty()){

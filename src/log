@@ -11,7 +11,23 @@ Table::Table
 Table::load
 ParsedQuery::clear
 
-Reading New Command: PRINT a
+Reading New Command: R <- SELECT A < B FROM a
+doCommand
+syntacticParse
+syntacticParseSELECTION
+semanticParse
+semanticParseSELECTION
+Table::isColumn
+Table::isColumn
+executeSELECTION
+Table::Table
+12
+Table::writeToSourceFile
+23
+Table::writeToSourceFile
+ParsedQuery::clear
+
+Reading New Command: PRINT R
 doCommand
 syntacticParse
 syntacticParsePRINT
@@ -20,24 +36,107 @@ semanticParsePRINT
 executePRINT
 ParsedQuery::clear
 
-Reading New Command: RENAME A TO D FROM a
+Reading New Command: S <- SELECT A == B FROM a
 doCommand
 syntacticParse
-syntacticParseRENAME
+syntacticParseSELECTION
 semanticParse
-semanticParseRENAME
+semanticParseSELECTION
 Table::isColumn
 Table::isColumn
-executeRENAME
+executeSELECTION
+Table::Table
+12
+23
 ParsedQuery::clear
 
-Reading New Command: PRINT a
+Reading New Command: PRINT S
 doCommand
 syntacticParse
 syntacticParsePRINT
 semanticParse
 semanticParsePRINT
 executePRINT
+ParsedQuery::clear
+
+Reading New Command: T <- SELECT A == 2 FROM R
+doCommand
+syntacticParse
+syntacticParseSELECTION
+semanticParse
+semanticParseSELECTION
+Table::isColumn
+executeSELECTION
+Table::Table
+12
+22
+Table::writeToSourceFile
+ParsedQuery::clear
+
+Reading New Command: PRINT T
+doCommand
+syntacticParse
+syntacticParsePRINT
+semanticParse
+semanticParsePRINT
+executePRINT
+ParsedQuery::clear
+
+Reading New Command: LIST TABLES
+doCommand
+syntacticParse
+syntacticParseLIST
+semanticParse
+semanticParseLIST
+executeLIST
+ParsedQuery::clear
+
+Reading New Command: CLEAR T
+doCommand
+syntacticParse
+syntacticParseCLEAR
+semanticParse
+semanticParseCLEAR
+executeCLEAR
+Table::~Table
+ParsedQuery::clear
+
+Reading New Command: LIST TABLES
+doCommand
+syntacticParse
+syntacticParseLIST
+semanticParse
+semanticParseLIST
+executeLIST
+ParsedQuery::clear
+
+Reading New Command: CLEAR S
+doCommand
+syntacticParse
+syntacticParseCLEAR
+semanticParse
+semanticParseCLEAR
+executeCLEAR
+Table::~Table
+ParsedQuery::clear
+
+Reading New Command: LIST TABLES
+doCommand
+syntacticParse
+syntacticParseLIST
+semanticParse
+semanticParseLIST
+executeLIST
+ParsedQuery::clear
+
+Reading New Command: CLEAR R
+doCommand
+syntacticParse
+syntacticParseCLEAR
+semanticParse
+semanticParseCLEAR
+executeCLEAR
+Table::~Table
 ParsedQuery::clear
 
 Reading New Command: QUIT
