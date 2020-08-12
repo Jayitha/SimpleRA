@@ -86,7 +86,11 @@ void executeSELECTION(){
     logger<<"executeSELECTION"<<endl;
 
     Table *rel = tableIndex[parsedQuery.selectionRelationName];
-    Table *resultRel = createNewTable(parsedQuery.selectionResultRelationName, rel->columns);
+    vector<string> columns;
+    for(int i=0; i < rel->columns.size(); i++){
+        columns.emplace_back(rel->columns[i].columnName);
+    }
+    Table *resultRel = createNewTable(parsedQuery.selectionResultRelationName, columns);
     rel->initializeCursor();
     while(rel->getNext()){
         resultRel->row = rel->row;

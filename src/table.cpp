@@ -165,18 +165,22 @@ bool isFileExists(string relationName){
     return (stat (fileName.c_str(), &buffer) == 0); 
 }
 
-Table* createNewTable(string relationName, vector<Column> columns){
+Table* createNewTable(string relationName, vector<string> columns){
     Table *rel = new Table(relationName);
     tableIndex[relationName] = rel;
-    rel->columns = columns;
+    for(int i=0; i < columns.size(); i++)
+    {
+        Column col(columns[i]);
+        rel->columns.emplace_back(col);
+    }
     for(auto col: columns)
-        rel->row[col.columnName] = 0;
+        rel->row[col] = 0;
     rel->filePointer.open(rel->sourceFileName, ios::out);
 
     for(int i=0; i<columns.size(); i++){
         if(i!=0)
             rel->filePointer<<", ";
-        rel->filePointer<<columns[i].columnName;
+        rel->filePointer<<columns[i];
     }
     rel->filePointer<<endl;
     rel->rowCount++;

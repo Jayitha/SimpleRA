@@ -31,4 +31,4 @@ bool isTable(string relationName);
 Table* getTable(string tableName);
 bool isColumnFromTable(string columnName, string relationName);
 bool isFileExists(string relationName);
-Table *createNewTable(string relationName, vector<Column> columns);
+Table *createNewTable(string relationName, vector<string> columns);
