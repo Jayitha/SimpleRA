@@ -11,18 +11,35 @@ Table::Table
 Table::load
 ParsedQuery::clear
 
-Reading New Command: R <- PROJECT A, B FROM a
+Reading New Command: PRINT a
 doCommand
 syntacticParse
-syntacticParsePROJECTION
+syntacticParsePRINT
 semanticParse
-semanticParsePROJECTION
+semanticParsePRINT
+executePRINT
+ParsedQuery::clear
+
+Reading New Command: R <- CROSS A A
+doCommand
+syntacticParse
+syntacticParseCROSS
+semanticParse
+semanticParseCROSS
+ParsedQuery::clear
+
+Reading New Command: R <- CROSS a a
+doCommand
+syntacticParse
+syntacticParseCROSS
+semanticParse
+semanticParseCROSS
+executeCROSS
 Table::isColumn
 Table::isColumn
-executePROJECTION
+Table::isColumn
+Table::isColumn
 Table::Table
-Table::writeToSourceFile
-Table::writeToSourceFile
 ParsedQuery::clear
 
 Reading New Command: PRINT R
@@ -34,6 +51,215 @@ semanticParsePRINT
 executePRINT
 ParsedQuery::clear
 
+Reading New Command: LOAD b
+doCommand
+syntacticParse
+syntacticParseLOAD
+semanticParse
+semanticParseLOAD
+executeLOAD
+Table::Table
+Table::load
+ParsedQuery::clear
+
+Reading New Command: PRINT b
+doCommand
+syntacticParse
+syntacticParsePRINT
+semanticParse
+semanticParsePRINT
+executePRINT
+ParsedQuery::clear
+
+Reading New Command: S <- CROSS A B
+doCommand
+syntacticParse
+syntacticParseCROSS
+semanticParse
+semanticParseCROSS
+ParsedQuery::clear
+
+Reading New Command: S <- CROSS a b
+doCommand
+syntacticParse
+syntacticParseCROSS
+semanticParse
+semanticParseCROSS
+executeCROSS
+Table::isColumn
+Table::isColumn
+Table::isColumn
+Table::isColumn
+Table::Table
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+ParsedQuery::clear
+
+Reading New Command: PRINT S
+doCommand
+syntacticParse
+syntacticParsePRINT
+semanticParse
+semanticParsePRINT
+executePRINT
+ParsedQuery::clear
+
+Reading New Command: RENAME a_A TO A FROM S
+doCommand
+syntacticParse
+syntacticParseRENAME
+semanticParse
+semanticParseRENAME
+Table::isColumn
+Table::isColumn
+executeRENAME
+ParsedQuery::clear
+
+Reading New Command: PRINT S
+doCommand
+syntacticParse
+syntacticParsePRINT
+semanticParse
+semanticParsePRINT
+executePRINT
+ParsedQuery::clear
+
+Reading New Command: RENAME a_B TO B FROM S
+doCommand
+syntacticParse
+syntacticParseRENAME
+semanticParse
+semanticParseRENAME
+Table::isColumn
+Table::isColumn
+executeRENAME
+ParsedQuery::clear
+
+Reading New Command: PRINT S
+doCommand
+syntacticParse
+syntacticParsePRINT
+semanticParse
+semanticParsePRINT
+executePRINT
+ParsedQuery::clear
+
+Reading New Command: RENAME b_A TO C FROM S
+doCommand
+syntacticParse
+syntacticParseRENAME
+semanticParse
+semanticParseRENAME
+Table::isColumn
+Table::isColumn
+executeRENAME
+ParsedQuery::clear
+
+Reading New Command: PRINT S
+doCommand
+syntacticParse
+syntacticParsePRINT
+semanticParse
+semanticParsePRINT
+executePRINT
+ParsedQuery::clear
+
+Reading New Command: RENAME b_B TO D FROM S
+doCommand
+syntacticParse
+syntacticParseRENAME
+semanticParse
+semanticParseRENAME
+Table::isColumn
+Table::isColumn
+executeRENAME
+ParsedQuery::clear
+
+Reading New Command: PRINT S
+doCommand
+syntacticParse
+syntacticParsePRINT
+semanticParse
+semanticParsePRINT
+executePRINT
+ParsedQuery::clear
+
+Reading New Command: T <- CROSS S a
+doCommand
+syntacticParse
+syntacticParseCROSS
+semanticParse
+semanticParseCROSS
+executeCROSS
+Table::isColumn
+Table::isColumn
+Table::isColumn
+Table::isColumn
+Table::isColumn
+Table::isColumn
+Table::Table
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+Table::writeToSourceFile
+ParsedQuery::clear
+
+Reading New Command: PRINT T
+doCommand
+syntacticParse
+syntacticParsePRINT
+semanticParse
+semanticParsePRINT
+executePRINT
+ParsedQuery::clear
+
+Reading New Command: LIST TABLES
+doCommand
+syntacticParse
+syntacticParseLIST
+semanticParse
+semanticParseLIST
+executeLIST
+ParsedQuery::clear
+
+Reading New Command: CLEAR T
+doCommand
+syntacticParse
+syntacticParseCLEAR
+semanticParse
+semanticParseCLEAR
+executeCLEAR
+Table::~Table
+ParsedQuery::clear
+
+Reading New Command: CLEAR S
+doCommand
+syntacticParse
+syntacticParseCLEAR
+semanticParse
+semanticParseCLEAR
+executeCLEAR
+Table::~Table
+ParsedQuery::clear
+
 Reading New Command: CLEAR R
 doCommand
 syntacticParse
@@ -42,6 +268,15 @@ semanticParse
 semanticParseCLEAR
 executeCLEAR
 Table::~Table
+ParsedQuery::clear
+
+Reading New Command: LIST TABLES
+doCommand
+syntacticParse
+syntacticParseLIST
+semanticParse
+semanticParseLIST
+executeLIST
 ParsedQuery::clear
 
 Reading New Command: QUIT
