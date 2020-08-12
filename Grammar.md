@@ -19,6 +19,7 @@ non_assignment_statement -> clear_statement
                            | print_statement
                            | quit_statement
                            | rename_statement
+                           | block_size_statement
 
 cross_product_statement -> CROSS relation_name relation_name
 
@@ -55,5 +56,7 @@ print_statement -> PRINT relation_name
 quit_statement -> QUIT
 
 rename_statement -> RENAME column_name TO column_name FROM relation_name
+
+block_size_statement -> BLOCK_SIZE int_literal
 
 ```
