@@ -21,5 +21,5 @@ public:
     bool isTable(string tableName);
     bool isColumnFromTable(string columnName, string tableName);
     void print();
-    ~TableCatalogue
+    ~TableCatalogue();
 };
