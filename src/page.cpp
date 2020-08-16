@@ -30,7 +30,7 @@ Page::Page(string tableName, int pageIndex)
     logger.log("Page::Page");
     this->tableName = tableName;
     this->pageIndex = pageIndex;
-    this->pageName = this->tableName + "_Page" + to_string(pageIndex);
+    this->pageName = "../data/temp/" + this->tableName + "_Page" + to_string(pageIndex);
     Table table = tableCatalogue.getTable(tableName);
     this->columnCount = table.columnCount;
     uint maxRowCount = table.maxRowsPerBlock;
@@ -67,7 +67,7 @@ Page::Page(string tableName, int pageIndex, vector<vector<int>> rows, int rowCou
     this->rows = rows;
     this->rowCount = rowCount;
     this->columnCount = rows[0].size();
-    this->pageName = this->tableName + "_Page" + to_string(pageIndex);
+    this->pageName = "../data/temp/"+this->tableName + "_Page" + to_string(pageIndex);
 }
 
 void Page::writePage()

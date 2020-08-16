@@ -125,7 +125,7 @@ void executeSELECTION()
         else
             value2 = row[secondColumnIndex];
         if (evaluateBinOp(value1, value2, parsedQuery.selectionBinaryOperator))
-            resultantTable.writeRow(row);
+            resultantTable.writeRow<int>(row);
         row = table.getNext(cursor);
     }
     return;

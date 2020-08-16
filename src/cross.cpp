@@ -84,7 +84,7 @@ void executeCROSS()
         {
             resultantRow = row1;
             resultantRow.insert(resultantRow.end(), row1.begin(), row1.end());
-            resultantTable.writeRow(resultantRow);
+            resultantTable.writeRow<int>(resultantRow);
             row2 = table2.getNext(cursor2);
         }
         row1 = table1.getNext(cursor1);

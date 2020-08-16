@@ -68,7 +68,7 @@ void executePROJECTION()
         {
             resultantRow[columnCounter] = row[columnIndices[columnCounter]];
         }
-        resultantTable.writeRow(resultantRow);
+        resultantTable.writeRow<int>(resultantRow);
         row = table.getNext(cursor);
     }
     return;
