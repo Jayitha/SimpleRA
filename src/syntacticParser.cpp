@@ -117,8 +117,9 @@ void ParsedQuery::clear()
  * @return true 
  * @return false 
  */
-bool isFileExists(string tableName){
-    string fileName = "../data/"+tableName+".csv";
+bool isFileExists(string tableName)
+{
+    string fileName = "../data/" + tableName + ".csv";
     struct stat buffer;
-    return (stat (fileName.c_str(), &buffer) == 0); 
+    return (stat(fileName.c_str(), &buffer) == 0);
 }

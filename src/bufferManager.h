@@ -26,7 +26,7 @@ class BufferManager{
     bool inPool(string pageName);
     Page getFromPool(string pageName);
     Page insertIntoPool(string tableName, int pageIndex);
-    BufferManager(){}
+    BufferManager();
     Page getPage(string tableName, int pageIndex);
     void writePage(string pageName, vector<vector<int>> rows);
     void deleteFile(string tableName, int pageIndex);

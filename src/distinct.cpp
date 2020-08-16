@@ -1,13 +1,15 @@
-#include"global.h"
+#include "global.h"
 
 /**
  * @brief 
  * SYNTAX: R <- DISTINCT relation_name
  */
-bool syntacticParseDISTINCT(){
+bool syntacticParseDISTINCT()
+{
     logger.log("syntacticParseDISTINCT");
-    if(tokenizedQuery.size() != 4){
-        cout<<"SYNTAX ERROR"<<endl;
+    if (tokenizedQuery.size() != 4)
+    {
+        cout << "SYNTAX ERROR" << endl;
         return false;
     }
     parsedQuery.queryType = DISTINCT;
@@ -16,22 +18,26 @@ bool syntacticParseDISTINCT(){
     return true;
 }
 
-bool semanticParseDISTINCT(){
+bool semanticParseDISTINCT()
+{
     logger.log("semanticParseDISTINCT");
 
-    if(tableCatalogue.isTable(parsedQuery.distinctResultRelationName)){
-        cout<<"SEMANTIC ERROR: Resultant relation already exists"<<endl;
+    if (tableCatalogue.isTable(parsedQuery.distinctResultRelationName))
+    {
+        cout << "SEMANTIC ERROR: Resultant relation already exists" << endl;
         return false;
-    } 
+    }
 
-    if(!tableCatalogue.isTable(parsedQuery.distinctRelationName)){
-        cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
+    if (!tableCatalogue.isTable(parsedQuery.distinctRelationName))
+    {
+        cout << "SEMANTIC ERROR: Relation doesn't exist" << endl;
         return false;
     }
     return true;
 }
 
-void executeDISTINCT(){
+void executeDISTINCT()
+{
     logger.log("executeDISTINCT");
     return;
 }
