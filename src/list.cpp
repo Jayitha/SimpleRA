@@ -1,10 +1,10 @@
-#include"executor.h"
+#include"global.h"
 /**
  * @brief 
  * SYNTAX: LIST TABLES
  */
 bool syntacticParseLIST(){
-    logger<<"syntacticParseLIST"<<endl;
+    logger.log("syntacticParseLIST");
     if(tokenizedQuery.size() != 2 || tokenizedQuery[1] != "TABLES"){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -14,18 +14,11 @@ bool syntacticParseLIST(){
 }
 
 bool semanticParseLIST(){
-    logger<<"semanticParseLIST"<<endl;
+    logger.log("semanticParseLIST");
     return true;
 }
 
 void executeLIST(){
-    logger<<"executeLIST"<<endl;
-    cout<<"\nRELATIONS"<<endl;
-
-    int rowCount = 0;
-    for(auto rel: tableIndex){
-        cout<<rel.first<<endl;
-        rowCount++;
-    }
-    printRowCount(rowCount);
+    logger.log("executeLIST");
+    tableCatalogue.print();
 }

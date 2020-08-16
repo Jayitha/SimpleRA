@@ -1,10 +1,10 @@
-#include"executor.h"
+#include"global.h"
 /**
  * @brief 
  * SYNTAX: LOAD relation_name
  */
 bool syntacticParseLOAD(){
-    logger<<"syntacticParseLOAD"<<endl;
+    logger.log("syntacticParseLOAD");
     if(tokenizedQuery.size() != 2){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -15,8 +15,8 @@ bool syntacticParseLOAD(){
 }
 
 bool semanticParseLOAD(){
-    logger<<"semanticParseLOAD"<<endl;
-    if(isTable(parsedQuery.loadRelationName)){
+    logger.log("semanticParseLOAD");
+    if(tableCatalogue.isTable(parsedQuery.loadRelationName)){
         cout<<"SEMANTIC ERROR: Relation already exists"<<endl;
         return false;
     }
@@ -29,14 +29,12 @@ bool semanticParseLOAD(){
 }
 
 void executeLOAD(){
-    logger<<"executeLOAD"<<endl;
+    logger.log("executeLOAD");
 
-    Table *rel = new Table(parsedQuery.loadRelationName);
-    if(!rel->load())
-        delete &rel;
-    else{
-        tableIndex[parsedQuery.loadRelationName] = rel;
-        cout<<"Loaded Table. Column Count: "<<rel->columns.size()<<" Row Count: "<<rel->rowCount<<endl;
+    Table table(parsedQuery.loadRelationName);
+    if(table.load()){
+        tableCatalogue.insertTable(table);
+        cout<<"Loaded Table. Column Count: "<<table.columnCount<<" Row Count: "<<table.rowCount<<endl;
     }
     return;
 }

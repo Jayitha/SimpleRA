@@ -1,57 +1,57 @@
 //Server Code
-#include"executor.h"
+#include "global.h"
 
 using namespace std;
 
-ParsedQuery parsedQuery;
+float BLOCK_SIZE = 1;
+uint BLOCK_COUNT = 10;
+uint PRINT_COUNT = 20;
+Logger logger;
 vector<string> tokenizedQuery;
-unordered_map<string, Table*> tableIndex;
-ofstream logger;
-uint BLOCK_SIZE = 10;
+ParsedQuery parsedQuery;
+TableCatalogue tableCatalogue;
 
-
-void doCommand(){
-    logger<<"doCommand"<<endl;
-    if(syntacticParse() && semanticParse())
+void doCommand()
+{
+    logger.log("doCommand");
+    if (syntacticParse() && semanticParse())
         executeCommand();
     return;
 }
 
-int main(void){
+int main(void)
+{
 
     regex delim("[^\\s.,]+");
     string command;
-    logger.open("log", ios::out);
 
-    while(1){
-        cout<<"\n> ";
+    while (1)
+    {
+        cout << "\n> ";
         tokenizedQuery.clear();
         parsedQuery.clear();
-        logger<<"\nReading New Command: ";
+        logger.log("\nReading New Command: ");
         getline(cin, command);
-        logger<<command<<endl;
-        
+        logger.log(command);
+
         auto words_begin = std::sregex_iterator(command.begin(), command.end(), delim);
         auto words_end = std::sregex_iterator();
         for (std::sregex_iterator i = words_begin; i != words_end; ++i)
             tokenizedQuery.emplace_back((*i).str());
 
-        if(tokenizedQuery.size() == 1 && tokenizedQuery.front() == "QUIT"){
+        if (tokenizedQuery.size() == 1 && tokenizedQuery.front() == "QUIT")
+        {
             break;
         }
 
-        if(tokenizedQuery.size() == 2 && tokenizedQuery.front() == "BLOCK_SIZE"){
-            BLOCK_SIZE = stoi(tokenizedQuery[1]);
-            logger<<"Block size set to: "<<BLOCK_SIZE<<endl;
+        if (tokenizedQuery.empty())
+        {
             continue;
         }
 
-        if(tokenizedQuery.empty()){
-            continue;
-        }
-
-        if(tokenizedQuery.size() == 1){
-            cout<<"SYNTAX ERROR"<<endl;
+        if (tokenizedQuery.size() == 1)
+        {
+            cout << "SYNTAX ERROR" << endl;
             continue;
         }
 

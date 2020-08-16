@@ -1,11 +1,11 @@
-#include"executor.h"
+#include"global.h"
 
 /**
  * @brief 
  * SYNTAX: R <- CROSS relation_name relation_name
  */
 bool syntacticParseCROSS(){    
-    logger<<"syntacticParseCROSS"<<endl;
+    logger.log("syntacticParseCROSS");
     if(tokenizedQuery.size() != 5){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -18,13 +18,13 @@ bool syntacticParseCROSS(){
 }
 
 bool semanticParseCROSS(){
-    logger<<"semanticParseCROSS"<<endl;
-    if(isTable(parsedQuery.crossResultRelationName)){
+    logger.log("semanticParseCROSS");
+    if(tableCatalogue.isTable(parsedQuery.crossResultRelationName)){
         cout<<"SEMANTIC ERROR: Resultant relation already exists"<<endl;
         return false;
     } 
 
-    if(!isTable(parsedQuery.crossFirstRelationName) || !isTable(parsedQuery.crossSecondRelationName)){
+    if(!tableCatalogue.isTable(parsedQuery.crossFirstRelationName) || !isTable(parsedQuery.crossSecondRelationName)){
         cout<<"SEMANTIC ERROR: Cross relations don't exist"<<endl;
         return false;
     }
@@ -33,53 +33,53 @@ bool semanticParseCROSS(){
 
 //TODO: Doesn't cross copies of same relation
 void executeCROSS(){
-    logger<<"executeCROSS"<<endl;
+    logger.log("executeCROSS");
 
-    Table *rel1 = getTable(parsedQuery.crossFirstRelationName);
-    Table *rel2 = getTable(parsedQuery.crossSecondRelationName);
+    Table table1 = tableCatalogue.getTable(parsedQuery.crossFirstRelationName);
+    Table table2 = tableCatalogue.getTable(parsedQuery.crossSecondRelationName);
 
     vector<string> columns;
-    unordered_map<string, string> rel1ToResultant;
-    unordered_map<string, string> rel2ToResultant;
 
-    for(int i=0; i < rel1->columns.size(); i++){
-        string columnName = rel1->columns[i].columnName;
-        if(rel2->isColumn(columnName)){
+    for(int columnCounter=0; columnCounter < table1.columnCount; columnCounter++){
+        string columnName = table1.columns[columnCounter];
+        if(table2.isColumn(columnName)){
             columnName = parsedQuery.crossFirstRelationName + "_" + columnName;
         }
         columns.emplace_back(columnName);
-        rel1ToResultant[rel1->columns[i].columnName] = columnName;
     }
 
-    for(int i=0; i < rel2->columns.size(); i++){
-        string columnName = rel2->columns[i].columnName;
-        if(rel1->isColumn(columnName)){
+    for(int columnCounter=0; columnCounter < table2.columnCount; columnCounter++){
+        string columnName = table2.columns[columnCounter];
+        if(table1.isColumn(columnName)){
             columnName = parsedQuery.crossSecondRelationName + "_" + columnName;
         }
         columns.emplace_back(columnName);
-        rel2ToResultant[rel2->columns[i].columnName] = columnName;
     }
 
-    Table *resultRel = createNewTable(parsedQuery.crossResultRelationName, columns);
+    Table resultantTable(parsedQuery.crossResultRelationName, columns);
 
-    rel1->initializeCursor();
+    Cursor cursor1 = table1.getCursor();
+    Cursor cursor2 = table2.getCursor();
 
-    while(rel1->getNext()){
-        rel2->initializeCursor();
-        for(int i=0; i < rel1->columns.size(); i++){
-            string columnName = rel1->columns[i].columnName;
-            resultRel->row[rel1ToResultant[columnName]] = rel1->row[columnName];
+    resultantTable.initializeWriting();
+
+    vector<int> row1 = table1.getNext(cursor1);
+    vector<int> row2;
+    vector<int> resultantRow;
+    resultantRow.reserve(resultantTable.columnCount);
+
+    while(!row1.empty()){
+
+        cursor2 = table2.getCursor();
+        row2 = table2.getNext(cursor2);    
+        while(!row2.empty()){
+            resultantRow = row1;
+            resultantRow.insert(resultantRow.end(), row1.begin(), row1.end());
+            resultantTable.writeRow(resultantRow);
+            row2 = table2.getNext(cursor2);
         }
-        while(rel2->getNext()){
-            for(int i=0; i < rel2->columns.size(); i++){
-                string columnName = rel2->columns[i].columnName;
-                resultRel->row[rel2ToResultant[columnName]] = rel2->row[columnName];
-            }
-            resultRel->writeToSourceFile();
-        }
-        rel2->closeFilePointer();
+        row1 = table1.getNext(cursor1);
     }
-    rel1->closeFilePointer();
-    resultRel->closeFilePointer();
+    resultantTable.terminateWriting();
     return;
 }

@@ -1,10 +1,10 @@
-#include"executor.h"
+#include"global.h"
 /**
  * @brief 
  * SYNTAX: R <- PROJECT column_name1, ... FROM relation_name
  */
 bool syntacticParsePROJECTION(){
-    logger<<"syntacticParsePROJECTION"<<endl;
+    logger.log("syntacticParsePROJECTION");
     if(tokenizedQuery.size() < 5 || *(tokenizedQuery.end()-2) != "FROM"){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -18,21 +18,21 @@ bool syntacticParsePROJECTION(){
 }
 
 bool semanticParsePROJECTION(){
-    logger<<"semanticParsePROJECTION"<<endl;
+    logger.log("semanticParsePROJECTION");
 
-    if(isTable(parsedQuery.projectionResultRelationName)){
+    if(tableCatalogue.isTable(parsedQuery.projectionResultRelationName)){
         cout<<"SEMANTIC ERROR: Resultant relation already exists"<<endl;
         return false;
     }
 
-    if(!isTable(parsedQuery.projectionRelationName)){
+    if(!tableCatalogue.isTable(parsedQuery.projectionRelationName)){
         cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
         return false;
     }
 
-    Table *rel = getTable(parsedQuery.projectionRelationName);
+    Table table = tableCatalogue.getTable(parsedQuery.projectionRelationName);
     for(auto col: parsedQuery.projectionColumnList){
-        if(!rel->isColumn(col)){
+        if(!table.isColumn(col)){
             cout<<"SEMANTIC ERROR: Column doesn't exist in relation";
             return false;
         }
@@ -41,17 +41,26 @@ bool semanticParsePROJECTION(){
 }
 
 void executePROJECTION(){
-    logger<<"executePROJECTION"<<endl;
-    Table *resultRel = createNewTable(parsedQuery.projectionResultRelationName, parsedQuery.projectionColumnList);
-    Table *rel = tableIndex[parsedQuery.projectionRelationName];
-    rel->initializeCursor();
-    while(rel->getNext()){
-        for(auto columnName: parsedQuery.projectionColumnList){
-            resultRel->row[columnName] = rel->row[columnName];
-        }
-        resultRel->writeToSourceFile();
+    logger.log("executePROJECTION");
+    Table resultantTable(parsedQuery.projectionResultRelationName, parsedQuery.projectionColumnList);
+    Table table = tableCatalogue.getTable(parsedQuery.projectionRelationName);
+    resultantTable.initializeWriting();
+    Cursor cursor = table.getCursor();
+    vector<int> columnIndices;
+    for(int columnCounter = 0; columnCounter < parsedQuery.projectionColumnList.size(); columnCounter++){
+        columnIndices.emplace_back(table.getColumnIndex(parsedQuery.projectionColumnList[columnCounter]));
     }
-    resultRel->closeFilePointer();
-    rel->closeFilePointer();
+    vector<int> row = table.getNext(cursor);
+    vector<int> resultantRow(columnIndices.size(), 0);
+        
+    while(!row.empty()){
+        
+        for(int columnCounter = 0; columnCounter < columnIndices.size(); columnCounter++){
+        resultantRow[columnCounter] = row[columnIndices[columnCounter]]; 
+    }
+        resultantTable.writeRow(resultantRow);
+        row = table.getNext(cursor);
+    }
+    resultantTable.terminateWriting();
     return;
 }

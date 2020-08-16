@@ -1,10 +1,10 @@
-#include"executor.h"
+#include"global.h"
 /**
  * @brief 
  * SYNTAX: R <- SELECT column_name bin_op [column_name | int_literal] FROM relation_name
  */
 bool syntacticParseSELECTION(){
-    logger<<"syntacticParseSELECTION"<<endl;
+    logger.log("syntacticParseSELECTION");
     if(tokenizedQuery.size()!=8 || tokenizedQuery[6]!="FROM"){
         cout<<"SYNTAC ERROR"<<endl;
         return false;
@@ -44,25 +44,25 @@ bool syntacticParseSELECTION(){
 }
 
 bool semanticParseSELECTION(){
-    logger<<"semanticParseSELECTION"<<endl;
+    logger.log("semanticParseSELECTION");
 
-    if(isTable(parsedQuery.selectionResultRelationName)){
+    if(tableCatalogue.isTable(parsedQuery.selectionResultRelationName)){
         cout<<"SEMANTIC ERROR: Resultant relation already exists"<<endl;
         return false;
     }
 
-    if(!isTable(parsedQuery.selectionRelationName)){
+    if(!tableCatalogue.isTable(parsedQuery.selectionRelationName)){
         cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
         return false;
     }
 
-    if(!isColumnFromTable(parsedQuery.selectionFirstColumnName, parsedQuery.selectionRelationName)){
+    if(!tableCatalogue.isColumnFromTable(parsedQuery.selectionFirstColumnName, parsedQuery.selectionRelationName)){
         cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
         return false;
     }
 
     if(parsedQuery.selectType == COLUMN){
-        if(!isColumnFromTable(parsedQuery.selectionSecondColumnName, parsedQuery.selectionRelationName)){
+        if(!tableCatalogue.isColumnFromTable(parsedQuery.selectionSecondColumnName, parsedQuery.selectionRelationName)){
             cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
             return false;
         }
@@ -83,28 +83,29 @@ bool evaluateBinOp(int value1, int value2, BinaryOperator binaryOperator){
 }
 
 void executeSELECTION(){
-    logger<<"executeSELECTION"<<endl;
+    logger.log("executeSELECTION");
 
-    Table *rel = tableIndex[parsedQuery.selectionRelationName];
-    vector<string> columns;
-    for(int i=0; i < rel->columns.size(); i++){
-        columns.emplace_back(rel->columns[i].columnName);
-    }
-    Table *resultRel = createNewTable(parsedQuery.selectionResultRelationName, columns);
-    rel->initializeCursor();
-    while(rel->getNext()){
-        resultRel->row = rel->row;
-        int value1 = rel->row[parsedQuery.selectionFirstColumnName];
+    Table table = tableCatalogue.getTable(parsedQuery.selectionRelationName);
+    Table resultantTable(parsedQuery.selectionResultRelationName, table.columns);
+    resultantTable.initializeWriting();
+    Cursor cursor = table.getCursor();
+    vector<int> row = table.getNext(cursor);
+    int firstColumnIndex = table.getColumnIndex(parsedQuery.selectionFirstColumnName);
+    int secondColumnIndex;
+    if(parsedQuery.selectType == COLUMN)
+        secondColumnIndex = table.getColumnIndex(parsedQuery.selectionSecondColumnName);
+    while(!row.empty()){
+        
+        int value1 = row[firstColumnIndex];
         int value2;
         if(parsedQuery.selectType == INT_LITERAL)
             value2 = parsedQuery.selectionIntLiteral;
         else
-            value2 = rel->row[parsedQuery.selectionSecondColumnName];
-        logger<<value1<<value2<<endl;
+            value2 = row[secondColumnIndex];
         if(evaluateBinOp(value1, value2, parsedQuery.selectionBinaryOperator))
-            resultRel->writeToSourceFile();
+            resultantTable.writeRow(row);
+            row = table.getNext(cursor);
     }
-    resultRel->closeFilePointer();
-    rel->closeFilePointer();
+    resultantTable.terminateWriting();
     return;
 }

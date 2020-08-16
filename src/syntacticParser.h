@@ -1,8 +1,9 @@
-#include"table.h"
+#include "tableCatalogue.h"
 
 using namespace std;
 
-enum QueryType{
+enum QueryType
+{
     CLEAR,
     CROSS,
     DISTINCT,
@@ -18,7 +19,8 @@ enum QueryType{
     UNDETERMINED
 };
 
-enum BinaryOperator{
+enum BinaryOperator
+{
     LESS_THAN,
     GREATER_THAN,
     LEQ,
@@ -28,22 +30,24 @@ enum BinaryOperator{
     NO_BINOP_CLAUSE
 };
 
-enum SortingStrategy{
+enum SortingStrategy
+{
     ASC,
     DESC,
     NO_SORT_CLAUSE
 };
 
-enum SelectType{
+enum SelectType
+{
     COLUMN,
     INT_LITERAL,
     NO_SELECT_CLAUSE
 };
 
-class ParsedQuery{
+class ParsedQuery
+{
 
-    public:
-
+public:
     QueryType queryType = UNDETERMINED;
 
     string clearRelationName = "";
@@ -95,9 +99,6 @@ class ParsedQuery{
     void clear();
 };
 
-extern vector<string> tokenizedQuery;
-extern ParsedQuery parsedQuery;
-
 bool syntacticParse();
 bool syntacticParseCLEAR();
 bool syntacticParseCROSS();
@@ -112,3 +113,4 @@ bool syntacticParseRENAME();
 bool syntacticParseSELECTION();
 bool syntacticParseSORT();
 
+bool isFileExists(string tableName);

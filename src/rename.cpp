@@ -1,10 +1,11 @@
-#include"executor.h"
+#include"global.h"
 /**
  * @brief 
  * SYNTAX: RENAME column_name TO column_name FROM relation_name
  */
-bool syntacticParseRENAME(){
-    logger<<"syntacticParseRENAME"<<endl;
+bool syntacticParseRENAME()
+{
+    logger.log("syntacticParseRENAME");
     if(tokenizedQuery.size()!=6 || tokenizedQuery[2]!="TO" || tokenizedQuery[4] != "FROM"){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -17,19 +18,19 @@ bool syntacticParseRENAME(){
 }
 
 bool semanticParseRENAME(){
-    logger<<"semanticParseRENAME"<<endl;
+    logger.log("semanticParseRENAME");
 
-    if(!isTable(parsedQuery.renameRelationName)){
+    if(!tableCatalogue.isTable(parsedQuery.renameRelationName)){
         cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
         return false;
     }
 
-    if(!isColumnFromTable(parsedQuery.renameFromColumnName, parsedQuery.renameRelationName)){
+    if(!tableCatalogue.isColumnFromTable(parsedQuery.renameFromColumnName, parsedQuery.renameRelationName)){
         cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
         return false;
     }
 
-    if(isColumnFromTable(parsedQuery.renameToColumnName, parsedQuery.renameRelationName)){
+    if(tableCatalogue.isColumnFromTable(parsedQuery.renameToColumnName, parsedQuery.renameRelationName)){
         cout<<"SEMANTIC ERROR: Column with name already exists"<<endl;
         return false;
     }
@@ -37,8 +38,8 @@ bool semanticParseRENAME(){
 }
 
 void executeRENAME(){
-    logger<<"executeRENAME"<<endl;
-    Table *rel = getTable(parsedQuery.renameRelationName);
-    rel->renameColumn(parsedQuery.renameFromColumnName, parsedQuery.renameToColumnName);
+    logger.log("executeRENAME");
+    Table table = tableCatalogue.getTable(parsedQuery.renameRelationName);
+    table.renameColumn(parsedQuery.renameFromColumnName, parsedQuery.renameToColumnName);
     return;
 }

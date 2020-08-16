@@ -1,4 +1,4 @@
-#include"executor.h"
+#include"global.h"
 
 void executeCommand(){
 
