@@ -46,18 +46,22 @@ Page BufferManager::insertIntoPool(string tableName, int pageIndex)
 
 void BufferManager::writePage(string tableName, int pageIndex, vector<vector<int>> rows, int rowCount)
 {
+    logger.log("BufferManager::writePage");
     Page page(tableName, pageIndex, rows, rowCount);
     page.writePage();
 }
 
 void BufferManager::deleteFile(string fileName)
 {
+    
     if (remove(fileName.c_str()))
         logger.log("BufferManager::deleteFile: Err");
+        else logger.log("BufferManager::deleteFile: Success");
 }
 
 void BufferManager::deleteFile(string tableName, int pageIndex)
 {
+    logger.log("BufferManager::deleteFile");
     string fileName = "../data/temp/"+tableName + "_Page" + to_string(pageIndex);
     this->deleteFile(fileName);
 }

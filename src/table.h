@@ -42,7 +42,6 @@ public:
     bool isColumn(string columnName);
     void renameColumn(string fromColumnName, string toColumnName);
     void print();
-    ~Table();
     void makePermanent();
     bool isPermanent();
     vector<int> getNext(Cursor cursor);
