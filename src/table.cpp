@@ -232,41 +232,7 @@ void Table::print()
     printRowCount(count);
 }
 
-/**
- * @brief Static function that takes a vector of valued and prints them out in a
- * comma seperated format.
- *
- * @tparam T current usaages include int and string
- * @param row 
- */
-template <typename T>
-void Table::writeRow(vector<T> row, ostream &fout)
-{
-    logger.log("Table::printRow");
-    for (int columnCounter = 0; columnCounter < row.size(); columnCounter++)
-    {
-        if (columnCounter != 0)
-            fout << ", ";
-        fout << row[columnCounter];
-    }
-    fout << endl;
-}
 
-/**
- * @brief Static function that takes a vector of valued and prints them out in a
- * comma seperated format.
- *
- * @tparam T current usaages include int and string
- * @param row 
- */
-template <typename T>
-void Table::writeRow(vector<T> row)
-{
-    logger.log("Table::printRow");
-    ofstream fout(this->sourceFileName, ios::app);
-    this->writeRow(row, fout);
-    fout.close();
-}
 
 /**
  * @brief This function returns one row of the table using the cursor object. It
@@ -279,7 +245,7 @@ vector<int> Table::getNext(Cursor cursor)
 {
     logger.log("Table::getNext");
     vector<int> row;
-    row.clear();
+    row = cursor.getNext();
 
     if (row.empty())
     {
@@ -333,6 +299,9 @@ bool Table::isPermanent()
 Table::~Table()
 {
     logger.log("Table::~Table");
+}
+
+void Table::unload(){
     for (int pageCounter = 0; pageCounter < this->blockCount; pageCounter++)
         bufferManager.deleteFile(this->tableName, pageCounter);
     if (!isPermanent())
