@@ -251,7 +251,7 @@ vector<int> Table::getNext(Cursor& cursor)
     {
         if (cursor.pageIndex < this->blockCount - 1)
         {
-            cursor.nextPage(cursor.pageIndex++);
+            cursor.nextPage(cursor.pageIndex+1);
             row = cursor.getNext();
         }
     }
