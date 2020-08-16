@@ -1,4 +1,4 @@
-#include"semanticParser.h"
+#include"global.h"
 
 bool semanticParse(){
     logger<<"semanticParse"<<endl;

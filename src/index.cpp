@@ -1,11 +1,11 @@
-#include"executor.h"
+#include"global.h"
 /**
  * @brief 
  * SYNTAX: INDEX ON column_name FROM relation_name USING indexing_strategy
  * indexing_strategy: ASC | DESC | NOTHING
  */
 bool syntacticParseINDEX(){
-    logger<<"syntacticParseINDEX"<<endl;
+    logger.log("syntacticParseINDEX");
     if(tokenizedQuery.size() != 7 || tokenizedQuery[1] != "ON" 
     || tokenizedQuery[3]!= "FROM" || tokenizedQuery[5] != "USING"){
         cout<<"SYNTAX ERROR"<<endl;
@@ -29,13 +29,13 @@ bool syntacticParseINDEX(){
 }
 
 bool semanticParseINDEX(){
-    logger<<"semanticParseINDEX"<<endl;
-    if(!isTable(parsedQuery.indexRelationName))
+    logger.log("semanticParseINDEX");
+    if(!tableCatalogue.isTable(parsedQuery.indexRelationName))
     {
         cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
         return false;
     }
-    if(!isColumnFromTable(parsedQuery.indexColumnName, parsedQuery.indexRelationName)){
+    if(!tableCatalogue.isColumnFromTable(parsedQuery.indexColumnName, parsedQuery.indexRelationName)){
         cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
         return false;
     }
@@ -43,6 +43,6 @@ bool semanticParseINDEX(){
 }
 
 void executeINDEX(){
-    logger<<"executeINDEX"<<endl;
+    logger.log("executeINDEX");
     return;
 }

@@ -1,4 +1,4 @@
-#include"executor.h"
+#include"global.h"
 /**
  * @brief File contains method to process SORT commands.
  * 
@@ -8,7 +8,7 @@
  * sorting_order = ASC | DESC 
  */
 bool syntacticParseSORT(){
-    logger<<"syntacticParseSORT"<<endl;
+    logger.log("syntacticParseSORT");
     if(tokenizedQuery.size()!= 8 || tokenizedQuery[4] != "BY" || tokenizedQuery[6] != "IN"){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -30,19 +30,19 @@ bool syntacticParseSORT(){
 }
 
 bool semanticParseSORT(){
-    logger<<"semanticParseSORT"<<endl;
+    logger.log("semanticParseSORT");
 
-    if(isTable(parsedQuery.sortResultRelationName)){
+    if(tableCatalogue.isTable(parsedQuery.sortResultRelationName)){
         cout<<"SEMANTIC ERROR: Resultant relation already exists"<<endl;
         return false;
     }
 
-    if(!isTable(parsedQuery.sortRelationName)){
+    if(!tableCatalogue.isTable(parsedQuery.sortRelationName)){
         cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
         return false;
     }
 
-    if(!isColumnFromTable(parsedQuery.sortColumnName, parsedQuery.sortRelationName)){
+    if(!tableCatalogue.isColumnFromTable(parsedQuery.sortColumnName, parsedQuery.sortRelationName)){
         cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
         return false;
     }
@@ -51,6 +51,6 @@ bool semanticParseSORT(){
 }
 
 void executeSORT(){
-    logger<<"executeSORT"<<endl;
+    logger.log("executeSORT");
     return;
 }

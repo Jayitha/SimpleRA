@@ -1,62 +1,66 @@
-#include"executor.h"
+#include "global.h"
 
-using namespace std;
-
-bool syntacticParse(){
-    logger<<"syntacticParse"<<endl;
+bool syntacticParse()
+{
+    logger.log("syntacticParse");
     string possibleQueryType = tokenizedQuery[0];
 
-    if(tokenizedQuery.size() < 2){
-        cout<<"SYNTAX ERROR"<<endl;
+    if (tokenizedQuery.size() < 2)
+    {
+        cout << "SYNTAX ERROR" << endl;
         return false;
     }
 
-    if(possibleQueryType == "CLEAR")
+    if (possibleQueryType == "CLEAR")
         return syntacticParseCLEAR();
-    else if(possibleQueryType == "INDEX")
+    else if (possibleQueryType == "INDEX")
         return syntacticParseINDEX();
-    else if(possibleQueryType == "LIST")
+    else if (possibleQueryType == "LIST")
         return syntacticParseLIST();
-    else if(possibleQueryType == "LOAD")
+    else if (possibleQueryType == "LOAD")
         return syntacticParseLOAD();
-    else if(possibleQueryType == "PRINT")
+    else if (possibleQueryType == "PRINT")
         return syntacticParsePRINT();
-    else if(possibleQueryType == "RENAME")
+    else if (possibleQueryType == "RENAME")
         return syntacticParseRENAME();
 
-    else{
+    else
+    {
         string resultantRelationName = possibleQueryType;
-        if(tokenizedQuery[1] != "<-" || tokenizedQuery.size() < 3){
-            cout<<"SYNTAX ERROR"<<endl;
+        if (tokenizedQuery[1] != "<-" || tokenizedQuery.size() < 3)
+        {
+            cout << "SYNTAX ERROR" << endl;
             return false;
         }
         possibleQueryType = tokenizedQuery[2];
-        if(possibleQueryType == "PROJECT")
+        if (possibleQueryType == "PROJECT")
             return syntacticParsePROJECTION();
-        else if(possibleQueryType == "SELECT")
+        else if (possibleQueryType == "SELECT")
             return syntacticParseSELECTION();
-            else if(possibleQueryType == "JOIN")
+        else if (possibleQueryType == "JOIN")
             return syntacticParseJOIN();
-        else if(possibleQueryType == "CROSS")
+        else if (possibleQueryType == "CROSS")
             return syntacticParseCROSS();
-        else if(possibleQueryType == "DISTINCT")
+        else if (possibleQueryType == "DISTINCT")
             return syntacticParseDISTINCT();
-        else if(possibleQueryType == "SORT")
+        else if (possibleQueryType == "SORT")
             return syntacticParseSORT();
-        else{
-            cout<<"SYNTAX ERROR"<<endl;
+        else
+        {
+            cout << "SYNTAX ERROR" << endl;
             return false;
         }
     }
     return false;
 }
 
-ParsedQuery::ParsedQuery(){
-
+ParsedQuery::ParsedQuery()
+{
 }
 
-void ParsedQuery::clear(){
-    logger<<"ParsedQuery::clear"<<endl;
+void ParsedQuery::clear()
+{
+    logger.log("ParseQuery::clear");
     this->queryType = UNDETERMINED;
 
     this->clearRelationName = "";
@@ -103,5 +107,18 @@ void ParsedQuery::clear(){
     this->sortResultRelationName = "";
     this->sortColumnName = "";
     this->sortRelationName = "";
-    
+}
+
+/**
+ * @brief Checks to see if source file exists. Called when LOAD command is
+ * invoked.
+ *
+ * @param tableName 
+ * @return true 
+ * @return false 
+ */
+bool isFileExists(string tableName){
+    string fileName = "../data/"+tableName+".csv";
+    struct stat buffer;
+    return (stat (fileName.c_str(), &buffer) == 0); 
 }

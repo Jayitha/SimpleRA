@@ -1,10 +1,10 @@
-#include"executor.h"
+#include"global.h"
 /**
  * @brief 
  * SYNTAX: R <- JOIN relation_name1, relation_name2 ON column_name1 bin_op column_name2
  */
 bool syntacticParseJOIN(){
-    logger<<"syntacticParseJOIN"<<endl;
+    logger.log("syntacticParseJOIN");
     if(tokenizedQuery.size()!=9 || tokenizedQuery[5]!="ON"){
         cout<<"SYNTAC ERROR"<<endl;
         return false;
@@ -37,20 +37,20 @@ bool syntacticParseJOIN(){
 }
 
 bool semanticParseJOIN(){
-    logger<<"semanticParseJOIN"<<endl;
+    logger.log("semanticParseJOIN");
 
-    if(isTable(parsedQuery.joinResultRelationName)){
+    if(tableCatalogue.isTable(parsedQuery.joinResultRelationName)){
         cout<<"SEMANTIC ERROR: Resultant relation already exists"<<endl;
         return false;
     }
 
-    if(!isTable(parsedQuery.joinFirstRelationName) || !isTable(parsedQuery.joinSecondRelationName)){
+    if(!tableCatalogue.isTable(parsedQuery.joinFirstRelationName) || !tableCatalogue.isTable(parsedQuery.joinSecondRelationName)){
         cout<<"SEMANTIC ERROR: Relation doesn't exist"<<endl;
         return false;
     }
 
-    if(!isColumnFromTable(parsedQuery.joinFirstColumnName, parsedQuery.joinFirstRelationName) 
-    || !isColumnFromTable(parsedQuery.joinSecondColumnName, parsedQuery.joinSecondRelationName)){
+    if(!tableCatalogue.isColumnFromTable(parsedQuery.joinFirstColumnName, parsedQuery.joinFirstRelationName) 
+    || !tableCatalogue.isColumnFromTable(parsedQuery.joinSecondColumnName, parsedQuery.joinSecondRelationName)){
         cout<<"SEMANTIC ERROR: Column doesn't exist in relation"<<endl;
         return false;
     }
@@ -58,6 +58,6 @@ bool semanticParseJOIN(){
 }
 
 void executeJOIN(){
-    logger<<"executeJOIN"<<endl;
+    logger.log("executeJOIN");
     return;
 }

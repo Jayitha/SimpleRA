@@ -1,4 +1,4 @@
-#include"executor.h"
+#include"global.h"
 
 /**
  * @brief 
@@ -6,7 +6,7 @@
  */
 
 bool syntacticParseCLEAR(){
-    logger<<"syntacticParseCLEAR"<<endl;
+    logger.log("syntacticParseCLEAR");
     if(tokenizedQuery.size() != 2){
         cout<<"SYNTAX ERROR"<<endl;
         return false;
@@ -17,20 +17,15 @@ bool syntacticParseCLEAR(){
 }
 
 bool semanticParseCLEAR(){
-    logger<<"semanticParseCLEAR"<<endl;
-    if(isTable(parsedQuery.clearRelationName))
+    logger.log("semanticParseCLEAR");
+    if(tableCatalogue.isTable(parsedQuery.clearRelationName))
         return true;
     cout<<"SEMANTIC ERROR: No such relation exists"<<endl;
     return false;
 }
 
 void executeCLEAR(){
-    logger<<"executeCLEAR"<<endl;
-    Table *rel = tableIndex[parsedQuery.clearRelationName];
-    tableIndex.erase(parsedQuery.clearRelationName);
-    if(remove(rel->sourceFileName.c_str())){
-        logger<<"Error deleting file: "<<rel->sourceFileName;
-    }
-    delete rel;
+    logger.log("executeCLEAR");
+    tableCatalogue.deleteTable(parsedQuery.clearRelationName);
     return;
 }

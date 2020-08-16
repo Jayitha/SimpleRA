@@ -7,44 +7,54 @@ CXXFLAGS = -Wall -g
 # ****************************************************
 # Targets needed to bring the executable up to date
 
-server: server.o clear.o cross.o distinct.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o table.o column.o
-	$(CXX) $(CXXFLAGS) -o server server.o clear.o cross.o distinct.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o table.o column.o
+server: server.o clear.o cross.o distinct.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o tableCatalogue.o table.o cursor.o bufferManager.o page.o logger.o
+	$(CXX) $(CXXFLAGS) -o server server.o clear.o cross.o distinct.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o tableCatalogue.o table.o cursor.o bufferManager.o page.o logger.o
 
 clean:
 	rm -f *.o *~ 
 
-server.o: server.cpp executor.h
+server.o: server.cpp global.h
 
-clear.o: clear.cpp executor.h
+clear.o: clear.cpp global.h
 
-cross.o: cross.cpp executor.h
+cross.o: cross.cpp global.h
 
-distinct.o: distinct.cpp executor.h
+distinct.o: distinct.cpp global.h
 
-index.o: index.cpp executor.h
+index.o: index.cpp global.h
 
-join.o: join.cpp executor.h
+join.o: join.cpp global.h
 
-list.o: list.cpp executor.h
+list.o: list.cpp global.h
 
-load.o: load.cpp executor.h
+load.o: load.cpp global.h
 
-print.o: print.cpp executor.h
+print.o: print.cpp global.h
 
-projection.o: projection.cpp executor.h
+projection.o: projection.cpp global.h
 
-rename.o: rename.cpp executor.h
+rename.o: rename.cpp global.h
 
-selection.o: selection.cpp executor.h
+selection.o: selection.cpp global.h
 
-sort.o: sort.cpp executor.h
+sort.o: sort.cpp global.h
 
-executor.o: executor.cpp executor.h semanticParser.h
+executor.o: executor.cpp global.h
 
-semanticParser.o: semanticParser.cpp semanticParser.h syntacticParser.h
+semanticParser.o: semanticParser.cpp global.h
 
-syntacticParser.o: syntacticParser.cpp syntacticParser.h table.h
+syntacticParser.o: syntacticParser.cpp global.h
 
-table.o: table.cpp table.h column.h
+tableCatalogue.o: tableCatalogue.cpp global.h
 
-column.o: column.cpp column.h
+table.o: table.cpp global.h
+
+cursor.o: cursor.cpp global.h
+
+bufferManager.o: bufferManager.cpp global.h
+
+page.o: page.cpp global.h
+
+logger.o: logger.cpp global.h
+
+

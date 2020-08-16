@@ -1,34 +1,59 @@
-#include"column.h"
+#include "cursor.h"
 
-class Table{
-
-    public:
-
-    string tableName = "";
-    string sourceFileName = "";
-    vector<Column> columns;
-    long long int rowCount = -1;
-    fstream filePointer;
-    unordered_map<string, int> row;
-
-    Table();
-    Table(string tableName);
-    bool load();
-    bool isColumn(string columnName);
-    Column getColumn(string columnName);
-    void renameColumn(string fromColumnName, string toColumnName);
-    void print();
-    void initializeCursor();
-    bool getNext();
-    void writeToSourceFile();
-    void closeFilePointer();
-    ~Table();
+enum IndexingStrategy
+{
+    BTREE,
+    HASH,
+    NOTHING
 };
 
-extern unordered_map<string, Table*> tableIndex;
+/**
+ * @brief The Table class holds all information related to a loaded table. It
+ * also implements methods that interact with the parsers, executors, cursors
+ * and the buffer manager. There are typically 2 ways a table object gets
+ * created through the course of the workflow - the first is by using the LOAD
+ * command and the second is to use assignment statements (SELECT, PROJECT,
+ * JOIN, SORT, CROSS and DISTINCT). 
+ *
+ */
+class Table
+{
+public:
+    string sourceFileName = "";
+    string tableName = "";
+    vector<string> columns;
+    vector<uint> distinctValuesPerColumnCount;
+    uint columnCount = 0;
+    long long int rowCount = 0;
+    uint blockCount = 0;
+    uint maxRowsPerBlock = 0;
+    vector<uint> rowsPerBlockCount;
+    bool indexed = false;
+    IndexingStrategy indexingStrategy = NOTHING;
+    vector<unordered_set<int>> distinctValuesInColumns;
+    static ofstream fout;
 
-bool isTable(string relationName);
-Table* getTable(string tableName);
-bool isColumnFromTable(string columnName, string relationName);
-bool isFileExists(string relationName);
-Table *createNewTable(string relationName, vector<string> columns);
+    bool extractColumnNames(string firstLine);
+    bool blockify();
+    void updateStatistics(vector<int> row);
+    Table();
+    Table(string tableName);
+    Table(string tableName, vector<string> columns);
+    bool load();
+    void initializeWriting();
+    bool isColumn(string columnName);
+    void renameColumn(string fromColumnName, string toColumnName);
+    void print();
+    ~Table();
+    template <typename T>
+    void writeRow(vector<T> row, ostream &fout);
+    template <typename T>
+    void writeRow(vector<T> row);
+    void initializeWriting();
+    void terminateWriting();
+    void makePermanent();
+    bool isPermanent();
+    vector<int> getNext(Cursor cursor);
+    Cursor getCursor();
+    int getColumnIndex(string columnName);
+};
