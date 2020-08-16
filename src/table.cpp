@@ -263,7 +263,9 @@ template <typename T>
 void Table::writeRow(vector<T> row)
 {
     logger.log("Table::printRow");
-    this->writeRow(row, this->fout);
+    ofstream fout(this->sourceFileName, ios::app);
+    this->writeRow(row, fout);
+    fout.close();
 }
 
 /**
@@ -290,25 +292,7 @@ vector<int> Table::getNext(Cursor cursor)
     return row;
 }
 
-/**
- * @brief Called when executing assignment statements.
- *
- */
-void Table::initializeWriting()
-{
-    logger.log("Table::initializeWriting");
-    this->fout.open(this->sourceFileName, ios::out);
-}
 
-/**
- * @brief Called when all rows from assignment statement have been written.
- *
- */
-void Table::terminateWriting()
-{
-    this->fout.close();
-    this->blockify();
-}
 
 /**
  * @brief called when EXPORT command is invoked to move source file to "data"
@@ -355,15 +339,17 @@ Table::~Table()
         bufferManager.deleteFile(this->sourceFileName);
 }
 
-Cursor Table::getCursor(){
+Cursor Table::getCursor()
+{
     Cursor cursor(this->tableName, 0);
     return cursor;
 }
 
-int Table::getColumnIndex(string columnName){
-    for(int columnCounter = 0; columnCounter < this->columnCount; columnCounter++){
-        if(this->columns[columnCounter] == columnName)
+int Table::getColumnIndex(string columnName)
+{
+    for (int columnCounter = 0; columnCounter < this->columnCount; columnCounter++)
+    {
+        if (this->columns[columnCounter] == columnName)
             return columnCounter;
     }
 }
-

@@ -10,6 +10,7 @@ Logger logger;
 vector<string> tokenizedQuery;
 ParsedQuery parsedQuery;
 TableCatalogue tableCatalogue;
+BufferManager bufferManager;
 
 void doCommand()
 {

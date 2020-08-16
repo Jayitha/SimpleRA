@@ -31,7 +31,6 @@ public:
     bool indexed = false;
     IndexingStrategy indexingStrategy = NOTHING;
     vector<unordered_set<int>> distinctValuesInColumns;
-    static ofstream fout;
 
     bool extractColumnNames(string firstLine);
     bool blockify();
@@ -40,7 +39,6 @@ public:
     Table(string tableName);
     Table(string tableName, vector<string> columns);
     bool load();
-    void initializeWriting();
     bool isColumn(string columnName);
     void renameColumn(string fromColumnName, string toColumnName);
     void print();
@@ -49,8 +47,6 @@ public:
     void writeRow(vector<T> row, ostream &fout);
     template <typename T>
     void writeRow(vector<T> row);
-    void initializeWriting();
-    void terminateWriting();
     void makePermanent();
     bool isPermanent();
     vector<int> getNext(Cursor cursor);

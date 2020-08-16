@@ -1,14 +1,16 @@
-#include"global.h"
+#include "global.h"
 
 /**
  * @brief 
  * SYNTAX: CLEAR <relation_name> 
  */
 
-bool syntacticParseCLEAR(){
+bool syntacticParseCLEAR()
+{
     logger.log("syntacticParseCLEAR");
-    if(tokenizedQuery.size() != 2){
-        cout<<"SYNTAX ERROR"<<endl;
+    if (tokenizedQuery.size() != 2)
+    {
+        cout << "SYNTAX ERROR" << endl;
         return false;
     }
     parsedQuery.queryType = CLEAR;
@@ -16,15 +18,17 @@ bool syntacticParseCLEAR(){
     return true;
 }
 
-bool semanticParseCLEAR(){
+bool semanticParseCLEAR()
+{
     logger.log("semanticParseCLEAR");
-    if(tableCatalogue.isTable(parsedQuery.clearRelationName))
+    if (tableCatalogue.isTable(parsedQuery.clearRelationName))
         return true;
-    cout<<"SEMANTIC ERROR: No such relation exists"<<endl;
+    cout << "SEMANTIC ERROR: No such relation exists" << endl;
     return false;
 }
 
-void executeCLEAR(){
+void executeCLEAR()
+{
     logger.log("executeCLEAR");
     tableCatalogue.deleteTable(parsedQuery.clearRelationName);
     return;

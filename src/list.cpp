@@ -1,24 +1,28 @@
-#include"global.h"
+#include "global.h"
 /**
  * @brief 
  * SYNTAX: LIST TABLES
  */
-bool syntacticParseLIST(){
+bool syntacticParseLIST()
+{
     logger.log("syntacticParseLIST");
-    if(tokenizedQuery.size() != 2 || tokenizedQuery[1] != "TABLES"){
-        cout<<"SYNTAX ERROR"<<endl;
+    if (tokenizedQuery.size() != 2 || tokenizedQuery[1] != "TABLES")
+    {
+        cout << "SYNTAX ERROR" << endl;
         return false;
     }
     parsedQuery.queryType = LIST;
     return true;
 }
 
-bool semanticParseLIST(){
+bool semanticParseLIST()
+{
     logger.log("semanticParseLIST");
     return true;
 }
 
-void executeLIST(){
+void executeLIST()
+{
     logger.log("executeLIST");
     tableCatalogue.print();
 }

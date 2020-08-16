@@ -1,10 +1,11 @@
-#include"global.h"
+#include "global.h"
 
-Logger::Logger(){
+Logger::Logger()
+{
     this->fout.open(this->logFile, ios::out);
 }
 
-void Logger::log(string logString){
-    fout<<logString<<endl;
+void Logger::log(string logString)
+{
+    fout << logString << endl;
 }
-
