@@ -40,10 +40,15 @@ void executeCROSS()
 {
     logger.log("executeCROSS");
 
-    Table table1 = tableCatalogue.getTable(parsedQuery.crossFirstRelationName);
-    Table table2 = tableCatalogue.getTable(parsedQuery.crossSecondRelationName);
+    Table table1 = *(tableCatalogue.getTable(parsedQuery.crossFirstRelationName));
+    Table table2 = *(tableCatalogue.getTable(parsedQuery.crossSecondRelationName));
 
     vector<string> columns;
+
+    if(table1.tableName == table2.tableName){
+        parsedQuery.crossFirstRelationName += "1";
+        parsedQuery.crossSecondRelationName += "2";
+    }
 
     for (int columnCounter = 0; columnCounter < table1.columnCount; columnCounter++)
     {
@@ -65,7 +70,9 @@ void executeCROSS()
         columns.emplace_back(columnName);
     }
 
-    Table resultantTable(parsedQuery.crossResultRelationName, columns);
+    Table *resultantTable = new Table(parsedQuery.crossResultRelationName, columns);\
+
+    resultantTable->writeRow<string>(columns);
 
     Cursor cursor1 = table1.getCursor();
     Cursor cursor2 = table2.getCursor();
@@ -73,7 +80,7 @@ void executeCROSS()
     vector<int> row1 = table1.getNext(cursor1);
     vector<int> row2;
     vector<int> resultantRow;
-    resultantRow.reserve(resultantTable.columnCount);
+    resultantRow.reserve(resultantTable->columnCount);
 
     while (!row1.empty())
     {
@@ -83,11 +90,13 @@ void executeCROSS()
         while (!row2.empty())
         {
             resultantRow = row1;
-            resultantRow.insert(resultantRow.end(), row1.begin(), row1.end());
-            resultantTable.writeRow<int>(resultantRow);
+            resultantRow.insert(resultantRow.end(), row2.begin(), row2.end());
+            resultantTable->writeRow<int>(resultantRow);
             row2 = table2.getNext(cursor2);
         }
         row1 = table1.getNext(cursor1);
     }
+    resultantTable->blockify();
+    tableCatalogue.insertTable(resultantTable);
     return;
 }

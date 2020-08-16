@@ -35,7 +35,7 @@ bool semanticParsePROJECTION()
         return false;
     }
 
-    Table table = tableCatalogue.getTable(parsedQuery.projectionRelationName);
+    Table table = *tableCatalogue.getTable(parsedQuery.projectionRelationName);
     for (auto col : parsedQuery.projectionColumnList)
     {
         if (!table.isColumn(col))
@@ -50,8 +50,9 @@ bool semanticParsePROJECTION()
 void executePROJECTION()
 {
     logger.log("executePROJECTION");
-    Table resultantTable(parsedQuery.projectionResultRelationName, parsedQuery.projectionColumnList);
-    Table table = tableCatalogue.getTable(parsedQuery.projectionRelationName);
+    Table* resultantTable = new Table(parsedQuery.projectionResultRelationName, parsedQuery.projectionColumnList);
+    resultantTable->writeRow<string>(resultantTable -> columns);
+    Table table = *tableCatalogue.getTable(parsedQuery.projectionRelationName);
     Cursor cursor = table.getCursor();
     vector<int> columnIndices;
     for (int columnCounter = 0; columnCounter < parsedQuery.projectionColumnList.size(); columnCounter++)
@@ -68,8 +69,10 @@ void executePROJECTION()
         {
             resultantRow[columnCounter] = row[columnIndices[columnCounter]];
         }
-        resultantTable.writeRow<int>(resultantRow);
+        resultantTable->writeRow<int>(resultantRow);
         row = table.getNext(cursor);
     }
+    resultantTable->blockify();
+    tableCatalogue.insertTable(resultantTable);
     return;
 }

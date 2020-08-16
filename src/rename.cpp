@@ -45,7 +45,7 @@ bool semanticParseRENAME()
 void executeRENAME()
 {
     logger.log("executeRENAME");
-    Table table = tableCatalogue.getTable(parsedQuery.renameRelationName);
-    table.renameColumn(parsedQuery.renameFromColumnName, parsedQuery.renameToColumnName);
+    Table* table = tableCatalogue.getTable(parsedQuery.renameRelationName);
+    table->renameColumn(parsedQuery.renameFromColumnName, parsedQuery.renameToColumnName);
     return;
 }

@@ -11,13 +11,13 @@
 class TableCatalogue
 {
 
-    unordered_map<string, Table> tables;
+    unordered_map<string, Table*> tables;
 
 public:
     TableCatalogue() {}
-    void insertTable(Table table);
+    void insertTable(Table* table);
     void deleteTable(string tableName);
-    Table getTable(string tableName);
+    Table* getTable(string tableName);
     bool isTable(string tableName);
     bool isColumnFromTable(string columnName, string tableName);
     void print();

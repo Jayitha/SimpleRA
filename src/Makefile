@@ -7,11 +7,13 @@ CXXFLAGS = -Wall -g
 # ****************************************************
 # Targets needed to bring the executable up to date
 
+all: server
+
 server: server.o clear.o cross.o distinct.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o tableCatalogue.o table.o cursor.o bufferManager.o page.o logger.o
 	$(CXX) $(CXXFLAGS) -o server server.o clear.o cross.o distinct.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o tableCatalogue.o table.o cursor.o bufferManager.o page.o logger.o
 
 clean:
-	rm -f *.o *~ 
+	rm -f *.o *~
 
 server.o: server.cpp global.h
 

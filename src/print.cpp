@@ -30,7 +30,7 @@ bool semanticParsePRINT()
 void executePRINT()
 {
     logger.log("executePRINT");
-    Table table = tableCatalogue.getTable(parsedQuery.printRelationName);
-    table.print();
+    Table* table = tableCatalogue.getTable(parsedQuery.printRelationName);
+    table->print();
     return;
 }

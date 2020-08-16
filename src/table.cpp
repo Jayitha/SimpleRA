@@ -38,7 +38,7 @@ Table::Table(string tableName, vector<string> columns)
     this->tableName = tableName;
     this->columns = columns;
     this->columnCount = columns.size();
-    this->maxRowsPerBlock = (uint)((BLOCK_SIZE * 1000) / (8 * columnCount));
+    this->maxRowsPerBlock = (uint)((BLOCK_SIZE * 1000) / (32 * columnCount));
 }
 
 /**
@@ -88,7 +88,7 @@ bool Table::extractColumnNames(string firstLine)
         this->columns.emplace_back(word);
     }
     this->columnCount = this->columns.size();
-    this->maxRowsPerBlock = (uint)((BLOCK_SIZE * 1000) / (8 * this->columnCount));
+    this->maxRowsPerBlock = (uint)((BLOCK_SIZE * 1000) / (32 * this->columnCount));
 }
 
 /**
@@ -241,7 +241,7 @@ void Table::print()
  * @param cursor 
  * @return vector<int> 
  */
-vector<int> Table::getNext(Cursor cursor)
+vector<int> Table::getNext(Cursor& cursor)
 {
     logger.log("Table::getNext");
     vector<int> row;
@@ -285,7 +285,6 @@ bool Table::isPermanent()
 {
     logger.log("Table::isPermanent");
     if (this->sourceFileName == "../data/" + this->tableName + ".csv")
-        ;
     return true;
     return false;
 }

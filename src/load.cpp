@@ -37,11 +37,11 @@ void executeLOAD()
 {
     logger.log("executeLOAD");
 
-    Table table(parsedQuery.loadRelationName);
-    if (table.load())
+    Table *table = new Table(parsedQuery.loadRelationName);
+    if (table->load())
     {
         tableCatalogue.insertTable(table);
-        cout << "Loaded Table. Column Count: " << table.columnCount << " Row Count: " << table.rowCount << endl;
+        cout << "Loaded Table. Column Count: " << table->columnCount << " Row Count: " << table->rowCount << endl;
     }
     return;
 }
