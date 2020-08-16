@@ -62,6 +62,7 @@ vector<int> Page::getRow(int rowIndex)
 
 Page::Page(string tableName, int pageIndex, vector<vector<int>> rows, int rowCount)
 {
+    logger.log("Page::Page");
     this->tableName = tableName;
     this->pageIndex = pageIndex;
     this->rows = rows;
@@ -72,6 +73,7 @@ Page::Page(string tableName, int pageIndex, vector<vector<int>> rows, int rowCou
 
 void Page::writePage()
 {
+    logger.log("Page::writePage");
     ofstream fout(this->pageName, ios::trunc);
     for (int rowCounter = 0; rowCounter < this->rowCount; rowCounter++)
     {

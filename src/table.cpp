@@ -290,18 +290,8 @@ bool Table::isPermanent()
     return false;
 }
 
-/**
- * @brief Destroy the Table:: Table object. Removes all traces from the temp
- * repository. Make sure to export the file if you want the intermediate results
- * !
- *
- */
-Table::~Table()
-{
-    logger.log("Table::~Table");
-}
-
 void Table::unload(){
+    logger.log("Table::~unload");
     for (int pageCounter = 0; pageCounter < this->blockCount; pageCounter++)
         bufferManager.deleteFile(this->tableName, pageCounter);
     if (!isPermanent())
@@ -310,12 +300,14 @@ void Table::unload(){
 
 Cursor Table::getCursor()
 {
+    logger.log("Table::getCursor");
     Cursor cursor(this->tableName, 0);
     return cursor;
 }
 
 int Table::getColumnIndex(string columnName)
 {
+    logger.log("Table::getColumnIndex");
     for (int columnCounter = 0; columnCounter < this->columnCount; columnCounter++)
     {
         if (this->columns[columnCounter] == columnName)
