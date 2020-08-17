@@ -61,6 +61,7 @@ bool Table::load()
             if (this->blockify())
                 return true;
     }
+    fin.close();
     return false;
 }
 
@@ -268,11 +269,22 @@ vector<int> Table::getNext(Cursor& cursor)
 void Table::makePermanent()
 {
     logger.log("Table::makePermanent");
+    if(!this->isPermanent())
+        bufferManager.deleteFile(this->sourceFileName);
     string newSourceFile = "../data/" + this->tableName + ".csv";
-    if (rename(this->sourceFileName.c_str(), newSourceFile.c_str()))
-        logger.log("Table::makePermanent: Error");
-    this->sourceFileName = newSourceFile;
-    logger.log("Table::makePermanent: Success");
+    ofstream fout(newSourceFile, ios::out);
+
+    //print headings
+    this->writeRow(this->columns, fout);
+
+    Cursor cursor(this->tableName, 0);
+    vector<int> row;
+    for (int rowCounter = 0; rowCounter < this->rowCount; rowCounter++)
+    {
+        row = this->getNext(cursor);
+        this->writeRow(row, fout);
+    }
+    fout.close();
 }
 
 /**
@@ -289,6 +301,11 @@ bool Table::isPermanent()
     return false;
 }
 
+/**
+ * @brief The unload function removes the table from the database by deleting
+ * all temporary files created as part of this table
+ *
+ */
 void Table::unload(){
     logger.log("Table::~unload");
     for (int pageCounter = 0; pageCounter < this->blockCount; pageCounter++)
@@ -297,13 +314,23 @@ void Table::unload(){
         bufferManager.deleteFile(this->sourceFileName);
 }
 
+/**
+ * @brief Function that returns a cursor that reads rows from this table
+ * 
+ * @return Cursor 
+ */
 Cursor Table::getCursor()
 {
     logger.log("Table::getCursor");
     Cursor cursor(this->tableName, 0);
     return cursor;
 }
-
+/**
+ * @brief Function that returns the index of column indicated by columnName
+ * 
+ * @param columnName 
+ * @return int 
+ */
 int Table::getColumnIndex(string columnName)
 {
     logger.log("Table::getColumnIndex");

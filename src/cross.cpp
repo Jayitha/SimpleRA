@@ -22,6 +22,7 @@ bool syntacticParseCROSS()
 bool semanticParseCROSS()
 {
     logger.log("semanticParseCROSS");
+    //Both tables must exist and resultant table shouldn't
     if (tableCatalogue.isTable(parsedQuery.crossResultRelationName))
     {
         cout << "SEMANTIC ERROR: Resultant relation already exists" << endl;
@@ -40,24 +41,18 @@ void executeCROSS()
 {
     logger.log("executeCROSS");
 
-<<<<<<< HEAD
     Table table1 = *(tableCatalogue.getTable(parsedQuery.crossFirstRelationName));
     Table table2 = *(tableCatalogue.getTable(parsedQuery.crossSecondRelationName));
 
     vector<string> columns;
 
+    //If both tables are the same i.e. CROSS a a, then names are indexed as a1 and a2
     if(table1.tableName == table2.tableName){
         parsedQuery.crossFirstRelationName += "1";
         parsedQuery.crossSecondRelationName += "2";
     }
 
-=======
-    Table table1 = tableCatalogue.getTable(parsedQuery.crossFirstRelationName);
-    Table table2 = tableCatalogue.getTable(parsedQuery.crossSecondRelationName);
-
-    vector<string> columns;
-
->>>>>>> a6d0881855ea5e395a8c9a64389b8e98b8db445a
+    //Creating list of column names
     for (int columnCounter = 0; columnCounter < table1.columnCount; columnCounter++)
     {
         string columnName = table1.columns[columnCounter];
@@ -78,13 +73,9 @@ void executeCROSS()
         columns.emplace_back(columnName);
     }
 
-<<<<<<< HEAD
     Table *resultantTable = new Table(parsedQuery.crossResultRelationName, columns);\
 
     resultantTable->writeRow<string>(columns);
-=======
-    Table resultantTable(parsedQuery.crossResultRelationName, columns);
->>>>>>> a6d0881855ea5e395a8c9a64389b8e98b8db445a
 
     Cursor cursor1 = table1.getCursor();
     Cursor cursor2 = table2.getCursor();
@@ -92,11 +83,7 @@ void executeCROSS()
     vector<int> row1 = table1.getNext(cursor1);
     vector<int> row2;
     vector<int> resultantRow;
-<<<<<<< HEAD
     resultantRow.reserve(resultantTable->columnCount);
-=======
-    resultantRow.reserve(resultantTable.columnCount);
->>>>>>> a6d0881855ea5e395a8c9a64389b8e98b8db445a
 
     while (!row1.empty())
     {
@@ -106,21 +93,13 @@ void executeCROSS()
         while (!row2.empty())
         {
             resultantRow = row1;
-<<<<<<< HEAD
             resultantRow.insert(resultantRow.end(), row2.begin(), row2.end());
             resultantTable->writeRow<int>(resultantRow);
-=======
-            resultantRow.insert(resultantRow.end(), row1.begin(), row1.end());
-            resultantTable.writeRow<int>(resultantRow);
->>>>>>> a6d0881855ea5e395a8c9a64389b8e98b8db445a
             row2 = table2.getNext(cursor2);
         }
         row1 = table1.getNext(cursor1);
     }
-<<<<<<< HEAD
     resultantTable->blockify();
     tableCatalogue.insertTable(resultantTable);
-=======
->>>>>>> a6d0881855ea5e395a8c9a64389b8e98b8db445a
     return;
 }

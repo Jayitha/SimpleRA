@@ -2,15 +2,15 @@
 # Variables to control Makefile operation
 
 CXX = g++
-CXXFLAGS = -Wall -g
+CXXFLAGS = -g
 
 # ****************************************************
 # Targets needed to bring the executable up to date
 
 all: server
 
-server: server.o clear.o cross.o distinct.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o tableCatalogue.o table.o cursor.o bufferManager.o page.o logger.o
-	$(CXX) $(CXXFLAGS) -o server server.o clear.o cross.o distinct.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o tableCatalogue.o table.o cursor.o bufferManager.o page.o logger.o
+server: server.o clear.o cross.o distinct.o export.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o tableCatalogue.o table.o cursor.o bufferManager.o page.o logger.o
+	$(CXX) $(CXXFLAGS) -o server server.o clear.o cross.o distinct.o export.o index.o join.o list.o load.o print.o projection.o rename.o selection.o sort.o executor.o semanticParser.o syntacticParser.o tableCatalogue.o table.o cursor.o bufferManager.o page.o logger.o
 
 clean:
 	rm -f *.o *~
@@ -22,6 +22,8 @@ clear.o: clear.cpp global.h
 cross.o: cross.cpp global.h
 
 distinct.o: distinct.cpp global.h
+
+export.o: export.cpp global.h
 
 index.o: index.cpp global.h
 

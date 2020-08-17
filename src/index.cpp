@@ -43,6 +43,11 @@ bool semanticParseINDEX()
         cout << "SEMANTIC ERROR: Column doesn't exist in relation" << endl;
         return false;
     }
+    Table* table = tableCatalogue.getTable(parsedQuery.indexRelationName);
+    if(table->indexed){
+        cout << "SEMANTIC ERROR: Table already indexed" << endl;
+        return false;
+    }
     return true;
 }
 

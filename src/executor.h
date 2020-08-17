@@ -5,6 +5,7 @@ void executeCommand();
 void executeCLEAR();
 void executeCROSS();
 void executeDISTINCT();
+void executeEXPORT();
 void executeINDEX();
 void executeJOIN();
 void executeLIST();

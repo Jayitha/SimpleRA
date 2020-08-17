@@ -48,8 +48,15 @@ Page::Page(string tableName, int pageIndex)
             this->rows[rowCounter][columnCounter] = number;
         }
     }
+    fin.close();
 }
 
+/**
+ * @brief Get row from page indexed by rowIndex
+ * 
+ * @param rowIndex 
+ * @return vector<int> 
+ */
 vector<int> Page::getRow(int rowIndex)
 {
     logger.log("Page::getRow");
@@ -71,6 +78,10 @@ Page::Page(string tableName, int pageIndex, vector<vector<int>> rows, int rowCou
     this->pageName = "../data/temp/"+this->tableName + "_Page" + to_string(pageIndex);
 }
 
+/**
+ * @brief writes current page contents to file.
+ * 
+ */
 void Page::writePage()
 {
     logger.log("Page::writePage");

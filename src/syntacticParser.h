@@ -7,6 +7,7 @@ enum QueryType
     CLEAR,
     CROSS,
     DISTINCT,
+    EXPORT,
     INDEX,
     JOIN,
     LIST,
@@ -59,6 +60,8 @@ public:
     string distinctResultRelationName = "";
     string distinctRelationName = "";
 
+    string exportRelationName = "";
+
     IndexingStrategy indexingStrategy = NOTHING;
     string indexColumnName = "";
     string indexRelationName = "";
@@ -103,6 +106,7 @@ bool syntacticParse();
 bool syntacticParseCLEAR();
 bool syntacticParseCROSS();
 bool syntacticParseDISTINCT();
+bool syntacticParseEXPORT();
 bool syntacticParseINDEX();
 bool syntacticParseJOIN();
 bool syntacticParseLIST();

@@ -9,6 +9,13 @@ Cursor::Cursor(string tableName, int pageIndex)
     this->pageIndex = pageIndex;
 }
 
+/**
+ * @brief This function reads the next row from the page. The index of the
+ * current row read from the page is indicated by the pagePointer(points to row
+ * in page the cursor is pointing to).
+ *
+ * @return vector<int> 
+ */
 vector<int> Cursor::getNext()
 {
     logger.log("Cursor::geNext");
@@ -16,7 +23,12 @@ vector<int> Cursor::getNext()
     this->pagePointer++;
     return result;
 }
-
+/**
+ * @brief Function that loads Page indicated by pageIndex. Now the cursor starts
+ * reading from the new page.
+ *
+ * @param pageIndex 
+ */
 void Cursor::nextPage(int pageIndex)
 {
     logger.log("Cursor::nextPage");

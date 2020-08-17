@@ -18,6 +18,8 @@ enum IndexingStrategy
  */
 class Table
 {
+    vector<unordered_set<int>> distinctValuesInColumns;
+
 public:
     string sourceFileName = "";
     string tableName = "";
@@ -29,9 +31,9 @@ public:
     uint maxRowsPerBlock = 0;
     vector<uint> rowsPerBlockCount;
     bool indexed = false;
+    string indexedColumn = "";
     IndexingStrategy indexingStrategy = NOTHING;
-    vector<unordered_set<int>> distinctValuesInColumns;
-
+    
     bool extractColumnNames(string firstLine);
     bool blockify();
     void updateStatistics(vector<int> row);

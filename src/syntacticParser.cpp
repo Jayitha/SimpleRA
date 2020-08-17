@@ -23,7 +23,8 @@ bool syntacticParse()
         return syntacticParsePRINT();
     else if (possibleQueryType == "RENAME")
         return syntacticParseRENAME();
-
+    else if(possibleQueryType == "EXPORT")
+        return syntacticParseEXPORT();
     else
     {
         string resultantRelationName = possibleQueryType;

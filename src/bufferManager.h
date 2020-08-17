@@ -21,11 +21,14 @@
  *
  */
 class BufferManager{
-    public:
-    deque<Page> pages;
+
+    deque<Page> pages; 
     bool inPool(string pageName);
     Page getFromPool(string pageName);
     Page insertIntoPool(string tableName, int pageIndex);
+
+    public:
+    
     BufferManager();
     Page getPage(string tableName, int pageIndex);
     void writePage(string pageName, vector<vector<int>> rows);
