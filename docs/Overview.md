@@ -340,6 +340,8 @@ see: syntacticParser.h syntacticParser.cpp
 
 see: semanticParser.h semanticParser.cpp
 
+---
+
 ### Executors
 
 Every command(COMMAND) has a file in the executors directory, within that directory you'll find 3 functions
