@@ -129,7 +129,11 @@ void executeSELECTION()
             resultantTable->writeRow<int>(row);
         row = table.getNext(cursor);
     }
-    resultantTable->blockify();
-    tableCatalogue.insertTable(resultantTable);
+    if(resultantTable->blockify())
+        tableCatalogue.insertTable(resultantTable);
+    else{
+        cout<<"Empty Table"<<endl;
+        delete resultantTable;
+    }
     return;
 }

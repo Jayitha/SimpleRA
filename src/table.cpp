@@ -90,6 +90,7 @@ bool Table::extractColumnNames(string firstLine)
     }
     this->columnCount = this->columns.size();
     this->maxRowsPerBlock = (uint)((BLOCK_SIZE * 1000) / (32 * this->columnCount));
+    return true;
 }
 
 /**
@@ -230,7 +231,7 @@ void Table::print()
         row = this->getNext(cursor);
         this->writeRow(row, cout);
     }
-    printRowCount(count);
+    printRowCount(this->rowCount);
 }
 
 
