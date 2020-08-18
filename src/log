@@ -21,81 +21,13 @@ TableCatalogue::~insertTable
 ParseQuery::clear
 
 Reading New Command: 
-T <- PROJECT B FROM a
+UNLOAD a
 doCommand
 syntacticParse
-syntacticParsePROJECTION
-semanticParse
-semanticParsePROJECTION
-TableCatalogue::isTable
-TableCatalogue::isTable
-TableCatalogue::getTable
-Table::isColumn
-executePROJECTION
-Table::Table
-Table::printRow
-Table::printRow
-TableCatalogue::getTable
-Table::getCursor
-Cursor::Cursor
-BufferManager::getPage
-BufferManager::inPool
-BufferManager::insertIntoPool
-Page::Page
-TableCatalogue::getTable
-Table::getColumnIndex
-Table::getNext
-Cursor::geNext
-Page::getRow
-Table::printRow
-Table::printRow
-Table::getNext
-Cursor::geNext
-Page::getRow
-Table::printRow
-Table::printRow
-Table::getNext
-Cursor::geNext
-Page::getRow
-Table::blockify
-BufferManager::writePage
-Page::Page
-Page::writePage
-TableCatalogue::~insertTable
 ParseQuery::clear
 
 Reading New Command: 
-EXPORT T
-doCommand
-syntacticParse
-syntacticParseEXPORT
-semanticParse
-semanticParseEXPORT
-TableCatalogue::isTable
-executeEXPORT
-TableCatalogue::getTable
-Table::makePermanent
-Table::isPermanent
-BufferManager::deleteFile: Success
-Table::printRow
-Cursor::Cursor
-BufferManager::getPage
-BufferManager::inPool
-BufferManager::insertIntoPool
-Page::Page
-TableCatalogue::getTable
-Table::getNext
-Cursor::geNext
-Page::getRow
-Table::printRow
-Table::getNext
-Cursor::geNext
-Page::getRow
-Table::printRow
-ParseQuery::clear
-
-Reading New Command: 
-CLEAR T
+CLEAR a
 doCommand
 syntacticParse
 syntacticParseCLEAR
@@ -108,31 +40,8 @@ Table::~unload
 BufferManager::deleteFile
 BufferManager::deleteFile: Success
 Table::isPermanent
-BufferManager::deleteFile: Err
-ParseQuery::clear
-
-Reading New Command: 
-LIST RELATIONS
-doCommand
-syntacticParse
-syntacticParseLIST
-ParseQuery::clear
-
-Reading New Command: 
-LIST TABLES
-doCommand
-syntacticParse
-syntacticParseLIST
-semanticParse
-semanticParseLIST
-executeLIST
-TableCatalogue::print
 ParseQuery::clear
 
 Reading New Command: 
 QUIT
 TableCatalogue::~TableCatalogue
-Table::~unload
-BufferManager::deleteFile
-BufferManager::deleteFile: Success
-Table::isPermanent
