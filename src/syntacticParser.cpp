@@ -25,6 +25,8 @@ bool syntacticParse()
         return syntacticParseRENAME();
     else if(possibleQueryType == "EXPORT")
         return syntacticParseEXPORT();
+    else if(possibleQueryType == "SOURCE")
+        return syntacticParseSOURCE();
     else
     {
         string resultantRelationName = possibleQueryType;
@@ -73,6 +75,8 @@ void ParsedQuery::clear()
     this->distinctResultRelationName = "";
     this->distinctRelationName = "";
 
+    this->exportRelationName = "";
+
     this->indexingStrategy = NOTHING;
     this->indexColumnName = "";
     this->indexRelationName = "";
@@ -108,6 +112,8 @@ void ParsedQuery::clear()
     this->sortResultRelationName = "";
     this->sortColumnName = "";
     this->sortRelationName = "";
+
+    this->sourceFileName = "";
 }
 
 /**
@@ -121,6 +127,20 @@ void ParsedQuery::clear()
 bool isFileExists(string tableName)
 {
     string fileName = "../data/" + tableName + ".csv";
+    struct stat buffer;
+    return (stat(fileName.c_str(), &buffer) == 0);
+}
+
+/**
+ * @brief Checks to see if source file exists. Called when SOURCE command is
+ * invoked.
+ *
+ * @param tableName 
+ * @return true 
+ * @return false 
+ */
+bool isQueryFile(string fileName){
+    fileName = "../data/" + fileName + ".ra";
     struct stat buffer;
     return (stat(fileName.c_str(), &buffer) == 0);
 }

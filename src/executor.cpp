@@ -16,6 +16,7 @@ void executeCommand(){
         case RENAME: executeRENAME(); break;
         case SELECTION: executeSELECTION(); break;
         case SORT: executeSORT(); break;
+        case SOURCE: executeSOURCE(); break;
         default: cout<<"PARSING ERROR"<<endl;
     }
 

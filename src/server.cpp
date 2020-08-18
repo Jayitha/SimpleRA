@@ -23,7 +23,7 @@ void doCommand()
 int main(void)
 {
 
-    regex delim("[^\\s.,]+");
+    regex delim("[^\\s,]+");
     string command;
     system("rm -rf ../data/temp");
     system("mkdir ../data/temp");

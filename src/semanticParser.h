@@ -15,3 +15,4 @@ bool semanticParsePROJECTION();
 bool semanticParseRENAME();
 bool semanticParseSELECTION();
 bool semanticParseSORT();
+bool semanticParseSOURCE();

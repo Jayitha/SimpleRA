@@ -17,6 +17,7 @@ enum QueryType
     RENAME,
     SELECTION,
     SORT,
+    SOURCE,
     UNDETERMINED
 };
 
@@ -98,6 +99,8 @@ public:
     string sortColumnName = "";
     string sortRelationName = "";
 
+    string sourceFileName = "";
+
     ParsedQuery();
     void clear();
 };
@@ -116,5 +119,7 @@ bool syntacticParsePROJECTION();
 bool syntacticParseRENAME();
 bool syntacticParseSELECTION();
 bool syntacticParseSORT();
+bool syntacticParseSOURCE();
 
 bool isFileExists(string tableName);
+bool isQueryFile(string fileName);
