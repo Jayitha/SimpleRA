@@ -114,7 +114,7 @@ RENAME <toColumnName> TO <fromColumnName> FROM <table_name>
 - Naturally <table_name> should be a loaded table in the system and <fromColumnName> should be an exsiting column in the table
 - <toColumnName> should not be another column in the table
 
-Run: `RENAME B TO C FROM B`
+Run: `RENAME b TO c FROM B`
 
 ---
 
@@ -234,8 +234,8 @@ Where <bin_op> can be any operator among {>, <, >=, <=, =>, =<, ==, !=}
 
 - The selection command only takes one condition at a time
 
-Run: `R <- SELECT A >= 1 FROM A`
-`S <- SELECT A > B FROM A`
+Run: `R <- SELECT a >= 1 FROM A`
+`S <- SELECT a > b FROM A`
 
 ---
 
@@ -248,7 +248,7 @@ Syntax
 
 - naturally all columns should be present in the original table
 
-Run: `C <- PROJECT C FROM A`
+Run: `C <- PROJECT c FROM A`
 
 ---
 
@@ -276,7 +276,7 @@ Where <bin_op> means the same as it does in the SELECT operator
 
 - Implicitly assumes <column1> is from <table1> and <column2> if from <table2>
 
-Example: `J <- JOIN A, B ON A == A`
+Example: `J <- JOIN A, B ON a == a`
 
 ---
 
@@ -289,7 +289,7 @@ Syntax
 
 Where <sorting_order> can be `ASC` or `DESC`
 
-Example: `S <- SORT A BY B IN ASC`
+Example: `S <- SORT A BY b IN ASC`
 
 ---
 
@@ -310,7 +310,7 @@ SOURCE <query_name>
 
 - Buffer Manager
 
-- Crusor
+- Cursors
 
 - Tables
 
@@ -322,7 +322,7 @@ SOURCE <query_name>
 
 ![](flow.png)
 
-Run: `LOAD a` with debugger
+Run: `LOAD A` with debugger
 
 see: load.cpp
 
@@ -347,9 +347,9 @@ see: semanticParser.h semanticParser.cpp
 Every command(COMMAND) has a file in the executors directory, within that directory you'll find 3 functions
 
 ```
-syntacticParseCOMMAND()
-semanticParseCOMMAND()
-executeCOMMAND()
+syntacticParseCOMMAND
+semanticParseCOMMAND
+executeCOMMAND
 ```
 
 ---
@@ -374,7 +374,7 @@ A cursor is an object that acts like a pointer in a table. To read from a table,
 
 ![](cursor.png)
 
-Run: `R <- SELECT A == 1 FROM a` with debugger
+Run: `R <- SELECT a == 1 FROM A` with debugger
 
 ---
 
@@ -388,7 +388,8 @@ Every function call is logged in file names "log"
 
 - Phase 1: Code Familiarity (to be released today/tomorrow max)
 - Phase 2: 2 Phase Merge Sort
-- Phase 3: Indexing (for SELECTION)
+- Phase 3: Indexing
+- Phase 4: Indexing Optimized Operators
 - Phase 4: Optimisation (SOURCE)
 
 _Note: may include duplicate elimination_
@@ -415,9 +416,8 @@ _Note: may include duplicate elimination_
 
 ## References
 
-- GitHub Repo - [SimpleRA](https://github.com/Jayitha/SimpleRA)
+- GitHub Repo - [SimpleRA](https://github.com/SimpleRA/SimpleRA)
 - Build and run instructions will be provided later
-
 
 
 
