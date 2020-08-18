@@ -23,6 +23,7 @@ clean:
 	rm -f *.o *~
 	rm -f $(EXEC_DIR)/*.o $(EXEC_DIR)/*~
 	rm -f server
+	rm -f log
 
 %.o: %.cpp global.h
 
